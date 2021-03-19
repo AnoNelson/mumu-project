@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<meta charset="utf-8">
+<title>Digital Archive</title>
+
+<meta name="viewport"
+	content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1">
+<meta name="description" content="">
+<link rel="stylesheet" th:href="@{/styles/app.min.css}" />
+
+</head>
+<body class="page-loading">
+
+	<div class="pageload">
+		<div class="pageload-inner">
+			<div style="background: #D94B01" class="sk-rotating-plane"></div>
+		</div>
+	</div>
+
+	<div class="app signin usersession">
+		<div class="session-wrapper">
+			<div class="page-height-o row-equal align-middle">
+				<div class="column">
+					<div class="card bg-white no-border">
+						<div class="card-block">
+							<form role="form" class="form-layout"
+								enctype="application/x-www-form-urlencoded"
+								th:action="@{/signup}" th:object="${user}"
+								method="post">
+								<div class="text-center m-b">
+									<h4 class="text-uppercase">Welcome back</h4>
+									<p>Please sign in to your account</p>
+								</div>
+								<div class="alert alert-danger" role="alert" th:text="${error}"
+									th:if="${error}"></div>
+								<div class="form-inputs">
+									<label class="text-uppercase">Your username</label> <input
+										type="text" name="username" class="form-control input-lg"
+										th:field="*{username}" placeholder="Username" required>
+									<label class="text-uppercase">Your Password</label> <input
+										type="text" name="password" class="form-control input-lg"
+										th:field="*{password}" placeholder="Password" required
+										AUTOCOMPLETE="off">
+									<label class="text-uppercase">Your names</label> <input
+										type="text" name="full name" class="form-control input-lg"
+										th:field="*{names}" placeholder="Username" required>
+									<label class="text-uppercase">Your Email</label> <input
+										type="email" name="names" class="form-control input-lg"
+										th:field="*{email}" placeholder="email" required
+										AUTOCOMPLETE="off">
+									<label class="text-uppercase">Role</label> <input
+										type="text" name="role" class="form-control input-lg"
+										th:field="*{role}" placeholder="role" required
+										AUTOCOMPLETE="off">
+								</div>
+								<button style="background: #D94B01"
+									class="btn btn-primary btn-block btn-lg m-b" type="submit">Login</button>
+								<div class="divider"></div>
+								<p class="text-center"></p>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<footer class="session-footer">
+			<nav class="footer-right">
+				<ul class="nav">
+					<li><a href="javascript:;">Feedback</a></li>
+					<li><a href="javascript:;" class="scroll-up"> <i
+							class="fa fa-angle-up"></i>
+					</a></li>
+				</ul>
+			</nav>
+			<nav class="footer-left hidden-xs">
+				<ul class="nav">
+					<li><a href="javascript:;"><span>About</span> GTBank</a></li>
+					<li><a href="javascript:;">Privacy</a></li>
+					<li><a href="javascript:;">Terms</a></li>
+					<li><a href="javascript:;">Help</a></li>
+				</ul>
+			</nav>
+		</footer>
+
+	</div>
+	<script src="scripts/app.min.js"></script>
+</body>
+
+</html>

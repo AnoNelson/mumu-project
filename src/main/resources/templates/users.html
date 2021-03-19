@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8"/>
+    <meta name="description" content=""/>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1"/>
+    <title>Spring Boot Thymeleaf Application - Bootstrap DataTable</title>
+
+    <link rel="stylesheet" th:href="@{/styles/datatable.css}"/>
+    <link rel="stylesheet" th:href="@{/styles/app.min.css}"/>
+
+</head>
+< class="page-loading">
+
+<div th:if="${session.username == '' || session.username == null}">
+    <script>
+        window.location.replace("login");
+    </script>
+</div>
+
+<!-- start loader -->
+<div class="pageload">
+    <div class="pageload-inner">
+        <div style="background: #D94B01" class="sk-rotating-plane"></div>
+    </div>
+</div>
+<!-- end loader -->
+
+<!-- start header -->
+<div class="app layout-fixed-header">
+
+    <!-- start side bar -->
+    <div th:replace="fragments :: side-bar"></div>
+    <!-- start side bar -->
+
+    <div class="main-panel">
+
+        <!-- start header nav -->
+        <div class="header navbar">
+            <div th:replace="fragments :: header-nav"></div>
+        </div>
+        <!-- start header nav -->
+
+        <!-- start main content -->
+        <div class="main-content">
+            <table id="example" class="display" width="100%">
+
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+<script th:src="@{/scripts/app.min.js}"></script>
+<script th:src="@{/scripts/tables/datatable1.js}"></script>
+<script th:src="@{/scripts/tables/datatable2.js}"></script>
+
+<script>
+    var dataSet = [
+
+    ];
+
+    $(document).ready(function () {
+        $('#example').DataTable({
+            data: dataSet,
+            columns: [
+                {title: "Name"},
+                {title: "Position"},
+                {title: "Office"},
+                {title: "Extn."},
+                {title: "Start date"},
+                {title: "Salary"}
+            ]
+        });
+    });
+</script>
+
+</body>
+</html>

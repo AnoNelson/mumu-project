@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+<head>
+<!-- <div th:replace="fragments :: head"></div> -->
+
+<meta charset="utf-8" />
+<meta name="description" content="" />
+<meta name="viewport"
+	content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1" />
+<link rel="stylesheet" th:href="@{/styles/app.min.css}" />
+<!-- <link rel="stylesheet"
+	th:href="@{/bootstrap-4.0.0/bootstrap-4.0.0/dist/css/bootstrap.min.css}" /> -->
+<link rel="stylesheet"
+	href="vendor/datatables/media/css/datatables.bootstrap.html" />
+
+<title>FMOS</title>
+
+<!-- <c:if test="#{session.department == 'IT Dept'}"> 
+           <script> window.location.replace("dashboard");</script>
+    </c:if> -->
+</head>
+<body class="page-loading">
+
+	<div th:if="${session.username == '' || session.username == null}">
+		<script>
+			window.location.replace("login");
+		</script>
+	</div>
+
+	<!-- start loader -->
+	<div class="pageload">
+		<div class="pageload-inner">
+			<div style="background: #D94B01" class="sk-rotating-plane"></div>
+		</div>
+	</div>
+	<!-- end loader -->
+
+	<!-- start header -->
+	<div class="app layout-fixed-header">
+
+		<!-- start side bar -->
+		<div th:replace="fragments :: side-bar"></div>
+		<!-- start side bar -->
+
+		<div class="main-panel">
+
+			<!-- start header nav -->
+			<div class="header navbar">
+				<div th:replace="fragments :: header-nav"></div>
+			</div>
+			<!-- start header nav -->
+
+			<!-- start main content -->
+			<div class="main-content">
+				<!-- <div class="m-x-n-g m-t-n-g overflow-hidden">
+            <div class="card m-b-0 bg-primary-dark text-white p-a-md no-border">
+              <h4 class="m-t-0">
+                <span class="pull-right"> This week</span>
+                <span>Activity</span>
+              </h4>
+              <div
+                class="chart dashboard-line labels-white"
+                style="height: 300px"
+              ></div>
+            </div>
+            <div class="card bg-white no-border">
+              <div class="row text-center">
+                <div class="col-sm-3 col-xs-6 p-t p-b">
+                  <small class="text-muted bold">Daily </small>
+                </div>
+                <div class="col-sm-3 col-xs-6 p-t p-b">
+                  <small class="text-muted bold">Weekly </small>
+                </div>
+                <div class="col-sm-3 col-xs-6 p-t p-b">
+                  <small class="text-muted bold">Monthly </small>
+                </div>
+                <div class="col-sm-3 col-xs-6 p-t p-b">
+                  <small class="text-muted bold">Yearly </small>
+                </div>
+              </div>
+            </div>
+          </div> -->
+
+
+
+
+				<!-- start cards -->
+				<div class="row">
+					<!-- <div class="col-md-6 col-lg-4">
+              <div class="card card-block no-border bg-primary">
+                <div class="card-title text-center">
+                  <h5 class="m-a-0 text-uppercase">Weekly projections</h5>
+                  <small>the quick brew</small>
+                </div>
+                <div class="canvas-holder">
+                  <div class="chart labels-white dashboard-bar2" style="height: 71px; padding: 0px; position: relative;"><canvas class="flot-base" width="512" height="71" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 512px; height: 71px;"></canvas><div class="flot-text" style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; font-size: smaller; color: rgb(84, 84, 84);"><div class="flot-x-axis flot-x1-axis xAxis x1Axis" style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; display: block;"><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 57px; top: 55px; left: 21px; text-align: center;">0</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 57px; top: 55px; left: 81px; text-align: center;">1</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 57px; top: 55px; left: 141px; text-align: center;">2</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 57px; top: 55px; left: 201px; text-align: center;">3</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 57px; top: 55px; left: 261px; text-align: center;">4</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 57px; top: 55px; left: 320px; text-align: center;">5</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 57px; top: 55px; left: 380px; text-align: center;">6</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 57px; top: 55px; left: 440px; text-align: center;">7</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 57px; top: 55px; left: 500px; text-align: center;">8</div></div><div class="flot-y-axis flot-y1-axis yAxis y1Axis" style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; display: block;"><div class="flot-tick-label tickLabel" style="position: absolute; top: 42px; left: 12px; text-align: right;">0</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 21px; left: 6px; text-align: right;">50</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 0px; left: 0px; text-align: right;">100</div></div></div><canvas class="flot-overlay" width="512" height="71" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 512px; height: 71px;"></canvas></div>
+                </div>
+              </div>
+            </div> -->
+					<!--  <div class="col-md-6 col-lg-4">
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="card card-block no-border bg-white row-equal align-middle">
+                    <div class="column">
+                      <h6 class="m-a-0 text-uppercase">dax</h6>
+                      <small class="bold text-muted">10,499.71</small>
+                    </div>
+                    <div class="column">
+                      <h3 class="m-a-0 text-danger">-2.56%</h3>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="card card-block no-border bg-white row-equal align-middle">
+                    <div class="column">
+                      <h6 class="m-a-0 text-uppercase">Appl</h6>
+                      <small class="bold text-muted">114.72</small>
+                    </div>
+                    <div class="column">
+                      <h3 class="m-a-0 text-success">+0.84%</h3>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="card card-block no-border bg-white row-equal align-middle">
+                    <div class="column">
+                      <h6 class="m-a-0 text-uppercase">Dow j</h6>
+                      <small class="bold text-muted">17,392.22</small>
+                    </div>
+                    <div class="column">
+                      <h3 class="m-a-0 text-danger">-1.30%</h3>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="card card-block no-border bg-white row-equal align-middle">
+                    <div class="column">
+                      <h6 class="m-a-0 text-uppercase">Goog</h6>
+                      <small class="bold text-muted">651.23</small>
+                    </div>
+                    <div class="column">
+                      <h3 class="m-a-0 text-success">+1.34%</h3>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div> -->
+					<div class="col-sm-6">
+						<div class="card card-block no-border bg-white">
+							<div class="circle-icon bg-success text-white m-r">
+								<i class="icon-doc"></i>
+							</div>
+							<div class="overflow-hidden" style="margin-top: 1px">
+								<h4 class="m-a-0" ></h4>
+								<h6 class="m-a-0 text-muted">Registered Account Files</h6>
+							</div>
+						</div>
+						<div class="card card-block no-border bg-white">
+							<div class="circle-icon bg-warning text-white m-r">
+								<i class="icon-doc"></i>
+							</div>
+							<div class="overflow-hidden" style="margin-top: 1px">
+								<h4 class="m-a-0"></h4>
+								<h6 class="m-a-0 text-muted">Modified Accounts Files</h6>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-6">
+						<div class="card card-block no-border bg-white">
+							<div class="circle-icon bg-dark text-white m-r">
+								<i class="icon-doc"></i>
+							</div>
+							<div class="overflow-hidden" style="margin-top: 1px">
+								<h4 class="m-a-0" ></h4>
+								<h6 class="m-a-0 text-muted">Added Batch Files</h6>
+							</div>
+						</div>
+						<div class="card card-block no-border bg-white">
+							<div class="circle-icon bg-primary text-white m-r">
+								<i class="icon-doc"></i>
+							</div>
+							<div class="overflow-hidden" style="margin-top: 1px">
+								<h4 class="m-a-0"></h4>
+								<h6 class="m-a-0 text-muted">Total files</h6>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+			<!--  end cards -->
+
+
+		</div>
+		<!-- start main content -->
+
+	</div>
+	<!-- end header -->
+
+	<!-- start footer -->
+	<div th:replace="fragments :: footer"></div>
+	<!-- start footer -->
+
+
+
+	<!-- foot header -->
+	<!-- <div th:replace="fragments :: foot"></div> -->
+
+	<script th:src="@{/scripts/app.min.js}"></script>
+	<script th:src="@{/vendor/flot/jquery.flot.js}"></script>
+	<script th:src="@{/vendor/flot/jquery.flot.resize.js}"></script>
+	<script th:src="@{/vendor/flot/jquery.flot.categories.js}"></script>
+	<script th:src="@{/vendor/flot/jquery.flot.stack.js}"></script>
+	<script th:src="@{/vendor/flot/jquery.flot.time.js}"></script>
+	<script th:src="@{/vendor/flot/jquery.flot.pie.js}"></script>
+	<script th:src="@{/vendor/flot-spline/js/jquery.flot.spline.js}"></script>
+	<script th:src="@{/vendor/flot.orderbars/js/jquery.flot.orderBars.js}"></script>
+	<script th:src="@{/scripts/helpers/sameheight.js}"></script>
+	<script th:src="@{/scripts/ui/dashboard.js}"></script>
+	<!-- <script
+		th:src="@{/bootstrap-4.0.0/bootstrap-4.0.0/dist/js/bootstrap.min.js}"></script> -->
+
+	<script
+		th:src="@{/vendor/datatables/media/js/datatables.bootstrap.html}"></script>
+	<script type="text/javascript">
+		$('.datatable').dataTable({
+			'ajax' : 'data/datatables-arrays.json'
+		});
+	</script>
+	<!-- foot header -->
+</body>
+
+</html>
