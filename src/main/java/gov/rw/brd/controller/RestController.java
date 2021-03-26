@@ -10,8 +10,5 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("users")
 public class RestController {
 
-    @PostMapping
-    public Page<Employee> list(@RequestBody PagingRequest pagingRequest) {
-        return employeeService.getEmployees(pagingRequest);
-    }
+
 }

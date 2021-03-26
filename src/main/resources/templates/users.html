@@ -47,7 +47,27 @@
         <!-- start main content -->
         <div class="main-content">
             <table id="example" class="display" width="100%">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Position</th>
+                    <th>Office</th>
+                    <th>Age</th>
+                    <th>Start date</th>
+                    <th>Salary</th>
+                </tr>
+                </thead>
+              <tbody>
+                <tr th:each="user, i : ${usersList}">
+                    <td th:text="${user.user_id}"> me  </td>
+                    <td th:text="${user.username}"> me  </td>
+                    <td th:text="${user.email}"> me  </td>
+                    <td th:text="${user.role}"> me  </td>
+                    <td th:text="${user.status}"> me  </td>
+                    <td th:text="${user.created_At}"> me  </td>
 
+                </tr>
+              </tbody>
             </table>
         </div>
     </div>
@@ -59,23 +79,14 @@
 <script th:src="@{/scripts/tables/datatable1.js}"></script>
 <script th:src="@{/scripts/tables/datatable2.js}"></script>
 
-<script>
-    var dataSet = [
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var dataSet =  [[${usersList}]];
+    /*]]>*/
 
-    ];
-
+ console.log(dataSet)
     $(document).ready(function () {
-        $('#example').DataTable({
-            data: dataSet,
-            columns: [
-                {title: "Name"},
-                {title: "Position"},
-                {title: "Office"},
-                {title: "Extn."},
-                {title: "Start date"},
-                {title: "Salary"}
-            ]
-        });
+        $('#example').DataTable();
     });
 </script>
 
