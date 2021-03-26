@@ -109,5 +109,10 @@ public class User implements UserDetails {
     public String getPassword() {
         return this.password;
     }
+
+    @Override
+    public String toString() {
+        return "["+user_id +","+names +","+ username +","+ email +","+status +","+created_At +","+ role+"]";
+    }
 }
 
