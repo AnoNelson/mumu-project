@@ -13,7 +13,6 @@
     <link rel="stylesheet" th:href="@{/styles/app.min.css}"/>
 
 </head>
-< class="page-loading">
 
 <div th:if="${session.username == '' || session.username == null}">
     <script>
@@ -49,30 +48,43 @@
             <table id="example" class="display" width="100%">
                 <thead>
                 <tr>
-                    <th>Name</th>
-                    <th>Position</th>
-                    <th>Office</th>
-                    <th>Age</th>
-                    <th>Start date</th>
-                    <th>Salary</th>
+                    <th>user Id</th>
+                    <th>userName</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Status</th>
+                    <th>created Date</th>
+                    <th>Action</th>
                 </tr>
                 </thead>
-              <tbody>
+                <tbody>
                 <tr th:each="user, i : ${usersList}">
-                    <td th:text="${user.user_id}"> me  </td>
-                    <td th:text="${user.username}"> me  </td>
-                    <td th:text="${user.email}"> me  </td>
-                    <td th:text="${user.role}"> me  </td>
-                    <td th:text="${user.status}"> me  </td>
-                    <td th:text="${user.created_At}"> me  </td>
+                    <td th:text="${user.user_id}"> me</td>
+                    <td th:text="${user.username}"> me</td>
+                    <td th:text="${user.email}"> me</td>
+                    <td th:text="${user.role}"> me</td>
+                    <td th:text="${user.status}"> me</td>
+                    <td th:text="${user.created_At}"> me</td>
+                    <td>
+                        <form action="#" th:action="@{'/edit/' + ${user.user_id}}" method="post">
+                            <button type="submit" class="btn btn-warning cancel" name="action" value="edit">
+                                <i class="icon-ban">edit</i>
+                            </button>
+                            <button type="submit" class="btn btn-info" name="action" value="desactivate" th:if="${user.status.toString()=='ACTIVE'}">
+                                <span>Desactivate</span>
+                            </button>
+                            <button type="submit" class="btn btn-warning cancel" name="action" value="activate" th:if="${user.status.toString()!='ACTIVE'}">
+                                <span>Activate</span>
+                            </button>
+                        </form>
+                    </td>
 
                 </tr>
-              </tbody>
+                </tbody>
             </table>
         </div>
     </div>
 </div>
-
 
 
 <script th:src="@{/scripts/app.min.js}"></script>
@@ -81,10 +93,10 @@
 
 <script th:inline="javascript">
     /*<![CDATA[*/
-    var dataSet =  [[${usersList}]];
+    var dataSet = [[${usersList}]];
     /*]]>*/
 
- console.log(dataSet)
+    console.log(dataSet)
     $(document).ready(function () {
         $('#example').DataTable();
     });
