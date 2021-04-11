@@ -113,11 +113,13 @@ public class AppController {
         user.setPassword(bCryptPasswordEncoder.encode(uuidAsString));
         user.setConfirmPassword("");
         User savedUser = userRepository.save(user);
-        if(savedUser.getUser_id()!=0){
+        if (savedUser.getUser_id() != 0) {
             user.setPassword(uuidAsString);
-            String sendMessage =  emailProvider.sendEmailAlert(user.getEmail(),user);
-                User user1 = userRepository.findById(user.getUser_id()).orElse(new User());
-                return "redirect:/user-account";
-            }
+            String sendMessage = emailProvider.sendEmailAlert(user.getEmail(), user);
+            User user1 = userRepository.findById(user.getUser_id()).orElse(new User());
+            return "redirect:/user-account";
+        }
+        return null;
+    }
 
 }
