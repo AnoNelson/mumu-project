@@ -4,10 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.PrePersist;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -20,11 +17,21 @@ import java.util.UUID;
 public class LoanRequest {
     @Id
     private String requestId = UUID.randomUUID().toString();
-    private String loaneeFullName;
-    private String loaneeAdress;
-    private String loaneeEmail;
+    @OneToOne
+    @JoinColumn(name = "loanee_id", referencedColumnName = "loaneeId")
+    private Loanee loanee;
     @Transient
-    private MultipartFile file;
+    private MultipartFile requestLetter;
+    private String requestLetterName;
+    @Transient
+    private MultipartFile businessPlan;
+    private String businessPlanName;
+    @Transient
+    private MultipartFile bankStatement;
+    private String bankStatementName;
+    @Transient
+    private MultipartFile landDocuments;
+    private String landDocumentsName;
     private BigDecimal loanAmount;
     private boolean hasCreditComitteeAproved;
     @JsonFormat(pattern = "DD-MM-YYYY")

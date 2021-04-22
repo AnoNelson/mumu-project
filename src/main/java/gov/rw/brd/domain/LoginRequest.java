@@ -12,7 +12,6 @@ public class LoginRequest {
     @NotBlank(message = "password must not be blank")
     private String password;
 
-
     public String getUserName() {
         return userName;
     }
