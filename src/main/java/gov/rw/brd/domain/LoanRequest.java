@@ -13,7 +13,6 @@ import java.util.UUID;
  * Created by hp on 4/10/2021.
  */
 @Entity
-@Data
 public class LoanRequest {
     @Id
     private String requestId = UUID.randomUUID().toString();
@@ -61,4 +60,252 @@ public class LoanRequest {
         }
     }
 
+    public String getRequestId() {
+        return requestId;
+    }
+
+    public void setRequestId(String requestId) {
+        this.requestId = requestId;
+    }
+
+    public Loanee getLoanee() {
+        return loanee;
+    }
+
+    public void setLoanee(Loanee loanee) {
+        this.loanee = loanee;
+    }
+
+    public MultipartFile getRequestLetter() {
+        return requestLetter;
+    }
+
+    public void setRequestLetter(MultipartFile requestLetter) {
+        this.requestLetter = requestLetter;
+    }
+
+    public String getRequestLetterName() {
+        return requestLetterName;
+    }
+
+    public void setRequestLetterName(String requestLetterName) {
+        this.requestLetterName = requestLetterName;
+    }
+
+    public MultipartFile getBusinessPlan() {
+        return businessPlan;
+    }
+
+    public void setBusinessPlan(MultipartFile businessPlan) {
+        this.businessPlan = businessPlan;
+    }
+
+    public String getBusinessPlanName() {
+        return businessPlanName;
+    }
+
+    public void setBusinessPlanName(String businessPlanName) {
+        this.businessPlanName = businessPlanName;
+    }
+
+    public MultipartFile getBankStatement() {
+        return bankStatement;
+    }
+
+    public void setBankStatement(MultipartFile bankStatement) {
+        this.bankStatement = bankStatement;
+    }
+
+    public String getBankStatementName() {
+        return bankStatementName;
+    }
+
+    public void setBankStatementName(String bankStatementName) {
+        this.bankStatementName = bankStatementName;
+    }
+
+    public MultipartFile getLandDocuments() {
+        return landDocuments;
+    }
+
+    public void setLandDocuments(MultipartFile landDocuments) {
+        this.landDocuments = landDocuments;
+    }
+
+    public String getLandDocumentsName() {
+        return landDocumentsName;
+    }
+
+    public void setLandDocumentsName(String landDocumentsName) {
+        this.landDocumentsName = landDocumentsName;
+    }
+
+    public BigDecimal getLoanAmount() {
+        return loanAmount;
+    }
+
+    public void setLoanAmount(BigDecimal loanAmount) {
+        this.loanAmount = loanAmount;
+    }
+
+    public boolean isHasCreditComitteeAproved() {
+        return hasCreditComitteeAproved;
+    }
+
+    public void setHasCreditComitteeAproved(boolean hasCreditComitteeAproved) {
+        this.hasCreditComitteeAproved = hasCreditComitteeAproved;
+    }
+
+    public LocalDateTime getCreditCommitteeAprovalDate() {
+        return creditCommitteeAprovalDate;
+    }
+
+    public void setCreditCommitteeAprovalDate(LocalDateTime creditCommitteeAprovalDate) {
+        this.creditCommitteeAprovalDate = creditCommitteeAprovalDate;
+    }
+
+    public boolean isHasCreditComitteeDeclined() {
+        return hasCreditComitteeDeclined;
+    }
+
+    public void setHasCreditComitteeDeclined(boolean hasCreditComitteeDeclined) {
+        this.hasCreditComitteeDeclined = hasCreditComitteeDeclined;
+    }
+
+    public LocalDateTime getCreditCommitteeDenielDate() {
+        return creditCommitteeDenielDate;
+    }
+
+    public void setCreditCommitteeDenielDate(LocalDateTime creditCommitteeDenielDate) {
+        this.creditCommitteeDenielDate = creditCommitteeDenielDate;
+    }
+
+    public String getLoanCommitteeType() {
+        return loanCommitteeType;
+    }
+
+    public void setLoanCommitteeType(String loanCommitteeType) {
+        this.loanCommitteeType = loanCommitteeType;
+    }
+
+    public boolean isHasLoanOfficerApproved() {
+        return hasLoanOfficerApproved;
+    }
+
+    public void setHasLoanOfficerApproved(boolean hasLoanOfficerApproved) {
+        this.hasLoanOfficerApproved = hasLoanOfficerApproved;
+    }
+
+    public LocalDateTime getLoanOfficerAprovalDate() {
+        return loanOfficerAprovalDate;
+    }
+
+    public void setLoanOfficerAprovalDate(LocalDateTime loanOfficerAprovalDate) {
+        this.loanOfficerAprovalDate = loanOfficerAprovalDate;
+    }
+
+    public boolean isHasLoanOfficerDeclined() {
+        return hasLoanOfficerDeclined;
+    }
+
+    public void setHasLoanOfficerDeclined(boolean hasLoanOfficerDeclined) {
+        this.hasLoanOfficerDeclined = hasLoanOfficerDeclined;
+    }
+
+    public LocalDateTime getLoanOfficerDenialDate() {
+        return loanOfficerDenialDate;
+    }
+
+    public void setLoanOfficerDenialDate(LocalDateTime loanOfficerDenialDate) {
+        this.loanOfficerDenialDate = loanOfficerDenialDate;
+    }
+
+    public boolean isHasRiskApproved() {
+        return hasRiskApproved;
+    }
+
+    public void setHasRiskApproved(boolean hasRiskApproved) {
+        this.hasRiskApproved = hasRiskApproved;
+    }
+
+    public LocalDateTime getRiskAprovalDate() {
+        return riskAprovalDate;
+    }
+
+    public void setRiskAprovalDate(LocalDateTime riskAprovalDate) {
+        this.riskAprovalDate = riskAprovalDate;
+    }
+
+    public boolean isHasRiskDenied() {
+        return hasRiskDenied;
+    }
+
+    public void setHasRiskDenied(boolean hasRiskDenied) {
+        this.hasRiskDenied = hasRiskDenied;
+    }
+
+    public LocalDateTime getRiskDenialDate() {
+        return riskDenialDate;
+    }
+
+    public void setRiskDenialDate(LocalDateTime riskDenialDate) {
+        this.riskDenialDate = riskDenialDate;
+    }
+
+    public boolean isHasNotificationLetterSent() {
+        return hasNotificationLetterSent;
+    }
+
+    public void setHasNotificationLetterSent(boolean hasNotificationLetterSent) {
+        this.hasNotificationLetterSent = hasNotificationLetterSent;
+    }
+
+    public LocalDateTime getNotificationLetterSentDate() {
+        return notificationLetterSentDate;
+    }
+
+    public void setNotificationLetterSentDate(LocalDateTime notificationLetterSentDate) {
+        this.notificationLetterSentDate = notificationLetterSentDate;
+    }
+
+    public LocalDateTime getRequestDate() {
+        return requestDate;
+    }
+
+    public void setRequestDate(LocalDateTime requestDate) {
+        this.requestDate = requestDate;
+    }
+
+    @Override
+    public String toString() {
+        return "LoanRequest{" +
+                "requestId='" + requestId + '\'' +
+                ", loanee=" + loanee +
+                ", requestLetter=" + requestLetter +
+                ", requestLetterName='" + requestLetterName + '\'' +
+                ", businessPlan=" + businessPlan +
+                ", businessPlanName='" + businessPlanName + '\'' +
+                ", bankStatement=" + bankStatement +
+                ", bankStatementName='" + bankStatementName + '\'' +
+                ", landDocuments=" + landDocuments +
+                ", landDocumentsName='" + landDocumentsName + '\'' +
+                ", loanAmount=" + loanAmount +
+                ", hasCreditComitteeAproved=" + hasCreditComitteeAproved +
+                ", creditCommitteeAprovalDate=" + creditCommitteeAprovalDate +
+                ", hasCreditComitteeDeclined=" + hasCreditComitteeDeclined +
+                ", creditCommitteeDenielDate=" + creditCommitteeDenielDate +
+                ", loanCommitteeType='" + loanCommitteeType + '\'' +
+                ", hasLoanOfficerApproved=" + hasLoanOfficerApproved +
+                ", loanOfficerAprovalDate=" + loanOfficerAprovalDate +
+                ", hasLoanOfficerDeclined=" + hasLoanOfficerDeclined +
+                ", loanOfficerDenialDate=" + loanOfficerDenialDate +
+                ", hasRiskApproved=" + hasRiskApproved +
+                ", riskAprovalDate=" + riskAprovalDate +
+                ", hasRiskDenied=" + hasRiskDenied +
+                ", riskDenialDate=" + riskDenialDate +
+                ", hasNotificationLetterSent=" + hasNotificationLetterSent +
+                ", notificationLetterSentDate=" + notificationLetterSentDate +
+                ", requestDate=" + requestDate +
+                '}';
+    }
 }

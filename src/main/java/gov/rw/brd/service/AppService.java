@@ -1,5 +1,6 @@
 package gov.rw.brd.service;
 
+import gov.rw.brd.domain.LoanRequest;
 import gov.rw.brd.domain.Loanee;
 import gov.rw.brd.repository.LoanRequestRepository;
 import gov.rw.brd.repository.LoaneeRepository;
@@ -19,6 +20,13 @@ public class AppService {
     private LoanRequestRepository loanRequestRepository;
 
     public Loanee saveLoanRequest(Loanee loanee){
-        return loaneeRepository.save(loanee);
+        LoanRequest request = loanee.getLoanRequest();
+        System.out.println(request);
+//        Loanee result = loaneeRepository.save(loanee);
+//        request.setLoanee(result);
+        loaneeRepository.save(loanee);
+        request.setLoanee(loanee);
+        loanRequestRepository.save(request);
+        return null;
     }
 }

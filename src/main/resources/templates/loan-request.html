@@ -82,15 +82,7 @@
                         <label>Account number</label> <input type="text"
                                                              class="form-control"
                                                              pattern="^[0-9]{3}\/[0-9]{6}\/[0-9]{1}\/[0-9]{4}\/[0-9]{1}"
-                                                             placeholder="211/179696/1/5100/0" required/>
-                    </div>
-                    <div class="form-group m-b col-md-6">
-                        <label>Category</label> <br/> <select class="form-control"
-                                                              style="width: 100%" required>
-                        <option th:value="''" th:text="Select..."></option>
-                        <option th:value="'Account'" th:text="Account"></option>
-                        <!-- <option disabled th:value="'Batch'" th:text="Batch"></option> -->
-                    </select>
+                                                             placeholder="211/179696/1/5100/0"/>
                     </div>
                 </div>
                 <div class="row">
@@ -104,7 +96,7 @@
 
 							<span class="btn btn-success fileinput-button"> <i
                                     class="icon-plus"></i> <span>Add files...</span> <input
-                                    type="file" th:field="*{LoanRequest.requestLetter}" required accept="application/pdf"/>
+                                    type="file" th:field="*{loanRequest.requestLetter}" required accept="application/pdf"/>
 							</span>
 
                                 <button type="reset" class="btn btn-warning cancel">
@@ -135,7 +127,7 @@
 
 							<span class="btn btn-success fileinput-button"> <i
                                     class="icon-plus"></i> <span>Add files...</span> <input
-                                    type="file" required accept="application/pdf"/>
+                                    type="file" th:field="*{loanRequest.businessPlan}" required accept="application/pdf"/>
 							</span>
 
                                 <button type="reset" class="btn btn-warning cancel">
@@ -169,7 +161,7 @@
 
 							<span class="btn btn-success fileinput-button"> <i
                                     class="icon-plus"></i> <span>Add files...</span> <input
-                                    type="file" required accept="application/pdf"/>
+                                    type="file" th:field="*{loanRequest.bankStatement}" required accept="application/pdf"/>
 							</span>
 
                                 <button type="reset" class="btn btn-warning cancel">
@@ -200,7 +192,7 @@
 
 							<span class="btn btn-success fileinput-button"> <i
                                     class="icon-plus"></i> <span>Add files...</span> <input
-                                    type="file" required accept="application/pdf"/>
+                                    type="file" th:field="*{loanRequest.landDocuments}" required accept="application/pdf"/>
 							</span>
 
                                 <button type="reset" class="btn btn-warning cancel">
