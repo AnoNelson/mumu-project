@@ -10,7 +10,7 @@ import java.util.UUID;
  * Created by hp on 4/17/2021.
  */
 @Entity
-@Data
+
 public class Loanee {
     @Id
     private String loaneeId = UUID.randomUUID().toString();
@@ -25,5 +25,74 @@ public class Loanee {
     @PrePersist
     private void onCreate(){
         createdDate = LocalDateTime.now();
+    }
+
+    public String getLoaneeId() {
+        return loaneeId;
+    }
+
+    public void setLoaneeId(String loaneeId) {
+        this.loaneeId = loaneeId;
+    }
+
+    public String getLoaneeFullName() {
+        return loaneeFullName;
+    }
+
+    public void setLoaneeFullName(String loaneeFullName) {
+        this.loaneeFullName = loaneeFullName;
+    }
+
+    public String getLoaneeAdress() {
+        return loaneeAdress;
+    }
+
+    public void setLoaneeAdress(String loaneeAdress) {
+        this.loaneeAdress = loaneeAdress;
+    }
+
+    public String getLoaneeEmail() {
+        return loaneeEmail;
+    }
+
+    public void setLoaneeEmail(String loaneeEmail) {
+        this.loaneeEmail = loaneeEmail;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public LocalDateTime getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(LocalDateTime createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public LoanRequest getLoanRequest() {
+        return loanRequest;
+    }
+
+    public void setLoanRequest(LoanRequest loanRequest) {
+        this.loanRequest = loanRequest;
+    }
+
+    @Override
+    public String toString() {
+        return "Loanee{" +
+                "loaneeId='" + loaneeId + '\'' +
+                ", loaneeFullName='" + loaneeFullName + '\'' +
+                ", loaneeAdress='" + loaneeAdress + '\'' +
+                ", loaneeEmail='" + loaneeEmail + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", createdDate=" + createdDate +
+                ", loanRequest=" + loanRequest +
+                '}';
     }
 }

@@ -90,6 +90,7 @@ public class AuthController {
         if(userRepository.findByEmail(user.getEmail()) == null){
             UUID uuid = UUID.randomUUID();
             String uuidAsString = uuid.toString();
+            System.out.println("password ----"+uuidAsString);
             user.setStatus(EStatus.ACTIVE);
             user.setPassword(bCryptPasswordEncoder.encode(uuidAsString));
             user.setConfirmPassword("");

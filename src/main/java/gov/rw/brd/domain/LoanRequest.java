@@ -13,7 +13,6 @@ import java.util.UUID;
  * Created by hp on 4/10/2021.
  */
 @Entity
-@Data
 public class LoanRequest {
     @Id
     private String requestId = UUID.randomUUID().toString();
@@ -33,23 +32,24 @@ public class LoanRequest {
     private MultipartFile landDocuments;
     private String landDocumentsName;
     private BigDecimal loanAmount;
-    private boolean hasCreditComitteeAproved;
+    private String hasCreditComitteeAproved;
     @JsonFormat(pattern = "DD-MM-YYYY")
     private LocalDateTime creditCommitteeAprovalDate;
-    private boolean hasCreditComitteeDeclined;
+    private String hasCreditComitteeDeclined;
     private LocalDateTime creditCommitteeDenielDate;
     private String loanCommitteeType;
-    private boolean hasLoanOfficerApproved;
+    private String hasLoanOfficerApproved;
     private LocalDateTime loanOfficerAprovalDate;
-    private boolean hasLoanOfficerDeclined;
+    private String hasLoanOfficerDeclined;
     private LocalDateTime loanOfficerDenialDate;
-    private boolean hasRiskApproved;
+    private String hasRiskApproved;
     private LocalDateTime riskAprovalDate;
-    private boolean hasRiskDenied;
+    private String hasRiskDenied;
     private LocalDateTime riskDenialDate;
-    private boolean hasNotificationLetterSent;
+    private String hasNotificationLetterSent;
     private LocalDateTime notificationLetterSentDate;
     private LocalDateTime requestDate;
+    private String status;
     @PrePersist
     private void beforeSave(){
         if(loanAmount.compareTo(new BigDecimal("1000000000")) <=1){
@@ -61,4 +61,260 @@ public class LoanRequest {
         }
     }
 
+    public String getRequestId() {
+        return requestId;
+    }
+
+    public void setRequestId(String requestId) {
+        this.requestId = requestId;
+    }
+
+    public Loanee getLoanee() {
+        return loanee;
+    }
+
+    public void setLoanee(Loanee loanee) {
+        this.loanee = loanee;
+    }
+
+    public MultipartFile getRequestLetter() {
+        return requestLetter;
+    }
+
+    public void setRequestLetter(MultipartFile requestLetter) {
+        this.requestLetter = requestLetter;
+    }
+
+    public String getRequestLetterName() {
+        return requestLetterName;
+    }
+
+    public void setRequestLetterName(String requestLetterName) {
+        this.requestLetterName = requestLetterName;
+    }
+
+    public MultipartFile getBusinessPlan() {
+        return businessPlan;
+    }
+
+    public void setBusinessPlan(MultipartFile businessPlan) {
+        this.businessPlan = businessPlan;
+    }
+
+    public String getBusinessPlanName() {
+        return businessPlanName;
+    }
+
+    public void setBusinessPlanName(String businessPlanName) {
+        this.businessPlanName = businessPlanName;
+    }
+
+    public MultipartFile getBankStatement() {
+        return bankStatement;
+    }
+
+    public void setBankStatement(MultipartFile bankStatement) {
+        this.bankStatement = bankStatement;
+    }
+
+    public String getBankStatementName() {
+        return bankStatementName;
+    }
+
+    public void setBankStatementName(String bankStatementName) {
+        this.bankStatementName = bankStatementName;
+    }
+
+    public MultipartFile getLandDocuments() {
+        return landDocuments;
+    }
+
+    public void setLandDocuments(MultipartFile landDocuments) {
+        this.landDocuments = landDocuments;
+    }
+
+    public String getLandDocumentsName() {
+        return landDocumentsName;
+    }
+
+    public void setLandDocumentsName(String landDocumentsName) {
+        this.landDocumentsName = landDocumentsName;
+    }
+
+    public BigDecimal getLoanAmount() {
+        return loanAmount;
+    }
+
+    public void setLoanAmount(BigDecimal loanAmount) {
+        this.loanAmount = loanAmount;
+    }
+
+    public String getHasCreditComitteeAproved() {
+        return hasCreditComitteeAproved;
+    }
+
+    public void setHasCreditComitteeAproved(String hasCreditComitteeAproved) {
+        this.hasCreditComitteeAproved = hasCreditComitteeAproved;
+    }
+
+    public LocalDateTime getCreditCommitteeAprovalDate() {
+        return creditCommitteeAprovalDate;
+    }
+
+    public void setCreditCommitteeAprovalDate(LocalDateTime creditCommitteeAprovalDate) {
+        this.creditCommitteeAprovalDate = creditCommitteeAprovalDate;
+    }
+
+    public String getHasCreditComitteeDeclined() {
+        return hasCreditComitteeDeclined;
+    }
+
+    public void setHasCreditComitteeDeclined(String hasCreditComitteeDeclined) {
+        this.hasCreditComitteeDeclined = hasCreditComitteeDeclined;
+    }
+
+    public LocalDateTime getCreditCommitteeDenielDate() {
+        return creditCommitteeDenielDate;
+    }
+
+    public void setCreditCommitteeDenielDate(LocalDateTime creditCommitteeDenielDate) {
+        this.creditCommitteeDenielDate = creditCommitteeDenielDate;
+    }
+
+    public String getLoanCommitteeType() {
+        return loanCommitteeType;
+    }
+
+    public void setLoanCommitteeType(String loanCommitteeType) {
+        this.loanCommitteeType = loanCommitteeType;
+    }
+
+    public String getHasLoanOfficerApproved() {
+        return hasLoanOfficerApproved;
+    }
+
+    public void setHasLoanOfficerApproved(String hasLoanOfficerApproved) {
+        this.hasLoanOfficerApproved = hasLoanOfficerApproved;
+    }
+
+    public LocalDateTime getLoanOfficerAprovalDate() {
+        return loanOfficerAprovalDate;
+    }
+
+    public void setLoanOfficerAprovalDate(LocalDateTime loanOfficerAprovalDate) {
+        this.loanOfficerAprovalDate = loanOfficerAprovalDate;
+    }
+
+    public String getHasLoanOfficerDeclined() {
+        return hasLoanOfficerDeclined;
+    }
+
+    public void setHasLoanOfficerDeclined(String hasLoanOfficerDeclined) {
+        this.hasLoanOfficerDeclined = hasLoanOfficerDeclined;
+    }
+
+    public LocalDateTime getLoanOfficerDenialDate() {
+        return loanOfficerDenialDate;
+    }
+
+    public void setLoanOfficerDenialDate(LocalDateTime loanOfficerDenialDate) {
+        this.loanOfficerDenialDate = loanOfficerDenialDate;
+    }
+
+    public String getHasRiskApproved() {
+        return hasRiskApproved;
+    }
+
+    public void setHasRiskApproved(String hasRiskApproved) {
+        this.hasRiskApproved = hasRiskApproved;
+    }
+
+    public LocalDateTime getRiskAprovalDate() {
+        return riskAprovalDate;
+    }
+
+    public void setRiskAprovalDate(LocalDateTime riskAprovalDate) {
+        this.riskAprovalDate = riskAprovalDate;
+    }
+
+    public String getHasRiskDenied() {
+        return hasRiskDenied;
+    }
+
+    public void setHasRiskDenied(String hasRiskDenied) {
+        this.hasRiskDenied = hasRiskDenied;
+    }
+
+    public LocalDateTime getRiskDenialDate() {
+        return riskDenialDate;
+    }
+
+    public void setRiskDenialDate(LocalDateTime riskDenialDate) {
+        this.riskDenialDate = riskDenialDate;
+    }
+
+    public String getHasNotificationLetterSent() {
+        return hasNotificationLetterSent;
+    }
+
+    public void setHasNotificationLetterSent(String hasNotificationLetterSent) {
+        this.hasNotificationLetterSent = hasNotificationLetterSent;
+    }
+
+    public LocalDateTime getNotificationLetterSentDate() {
+        return notificationLetterSentDate;
+    }
+
+    public void setNotificationLetterSentDate(LocalDateTime notificationLetterSentDate) {
+        this.notificationLetterSentDate = notificationLetterSentDate;
+    }
+
+    public LocalDateTime getRequestDate() {
+        return requestDate;
+    }
+
+    public void setRequestDate(LocalDateTime requestDate) {
+        this.requestDate = requestDate;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return "LoanRequest{" +
+                "requestId='" + requestId + '\'' +
+                ", loanee=" + loanee +
+                ", requestLetter=" + requestLetter +
+                ", requestLetterName='" + requestLetterName + '\'' +
+                ", businessPlan=" + businessPlan +
+                ", businessPlanName='" + businessPlanName + '\'' +
+                ", bankStatement=" + bankStatement +
+                ", bankStatementName='" + bankStatementName + '\'' +
+                ", landDocuments=" + landDocuments +
+                ", landDocumentsName='" + landDocumentsName + '\'' +
+                ", loanAmount=" + loanAmount +
+                ", hasCreditComitteeAproved=" + hasCreditComitteeAproved +
+                ", creditCommitteeAprovalDate=" + creditCommitteeAprovalDate +
+                ", hasCreditComitteeDeclined=" + hasCreditComitteeDeclined +
+                ", creditCommitteeDenielDate=" + creditCommitteeDenielDate +
+                ", loanCommitteeType='" + loanCommitteeType + '\'' +
+                ", hasLoanOfficerApproved=" + hasLoanOfficerApproved +
+                ", loanOfficerAprovalDate=" + loanOfficerAprovalDate +
+                ", hasLoanOfficerDeclined=" + hasLoanOfficerDeclined +
+                ", loanOfficerDenialDate=" + loanOfficerDenialDate +
+                ", hasRiskApproved=" + hasRiskApproved +
+                ", riskAprovalDate=" + riskAprovalDate +
+                ", hasRiskDenied=" + hasRiskDenied +
+                ", riskDenialDate=" + riskDenialDate +
+                ", hasNotificationLetterSent=" + hasNotificationLetterSent +
+                ", notificationLetterSentDate=" + notificationLetterSentDate +
+                ", requestDate=" + requestDate +
+                '}';
+    }
 }
