@@ -79,10 +79,8 @@
                 </div>
                 <div class="row">
                     <div class="form-group m-b col-md-6">
-                        <label>Account number</label> <input type="text"
-                                                             class="form-control"
-                                                             pattern="^[0-9]{3}\/[0-9]{6}\/[0-9]{1}\/[0-9]{4}\/[0-9]{1}"
-                                                             placeholder="211/179696/1/5100/0"/>
+                        <label>mount of loan </label> <input type="text" th:field="*{loanRequest.loanAmount}"
+                                                             class="form-control">
                     </div>
                 </div>
                 <div class="row">

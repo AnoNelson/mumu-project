@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="description" content="" />
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1" />
+    <link rel="stylesheet" th:href="@{/styles/app.min.css}" />
+    <!-- <link rel="stylesheet"
+        th:href="@{/bootstrap-4.0.0/bootstrap-4.0.0/dist/css/bootstrap.min.css}" /> -->
+    <link rel="stylesheet"
+          href="vendor/datatables/media/css/datatables.bootstrap.html" />
+
+    <title>Digital Archive</title>
+</head>
+<body class="page-loading">
+
+
+<!-- start loader -->
+<div class="pageload">
+    <div class="pageload-inner">
+        <div style="background: #D94B01" class="sk-rotating-plane"></div>
+    </div>
+</div>
+<!-- end loader -->
+
+<!-- start header -->
+<div class="app layout-fixed-header">
+
+    <!-- start side bar -->
+    <div th:replace="fragments :: side-bar"></div>
+    <!-- start side bar -->
+
+    <div class="main-panel">
+
+        <!-- start header nav -->
+        <div class="header navbar">
+            <div th:replace="fragments :: header-nav"></div>
+        </div>
+        <!-- start header nav -->
+
+        <!-- start main content -->
+        <div class="main-content">
+            <div class="page-title">
+                <div class="sub-title">Accounts</div>
+            </div>
+            <div class="card bg-white">
+                <div class="card-header">Account list</div>
+                <div class="card-block">
+                    <table
+                            class="table table-bordered table-condensed datatable m-b-0">
+                        <thead>
+                        <tr>
+                            <th>Request Letter</th>
+                            <th>Business Plan</th>
+                            <th>Bank Statement</th>
+                            <th>Land Documents</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="a:${requests}">
+                            <td >
+                                <a th:href="@{'/edit-account/' + ${a.requestId}}"
+                                   style="margin-right: 4rem"> <i class="icon-note"></i></a>
+                            </td>
+                            <td th:text="${a.loanee.loaneeAdress}">
+                                <a th:href="@{'/edit-account/' + ${a.requestId}}"
+                                   style="margin-right: 4rem"> <i class="icon-note"></i></a>
+                            </td>
+                            <td th:text="${a.loanee.loaneeEmail}">
+                                <a th:href="@{'/edit-account/' + ${a.requestId}}"
+                                   style="margin-right: 4rem"> <i class="icon-note"></i></a>
+                            </td>
+                            <td>
+                                <a th:href="@{'/edit-account/' + ${a.requestId}}"
+                                   style="margin-right: 4rem"> <i class="icon-note"></i></a>
+                            </td>
+
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- start main content -->
+
+    </div>
+
+    <!-- start footer -->
+    <div th:replace="fragments :: footer"></div>
+    <!-- start footer -->
+
+
+</div>
+<!-- end header -->
+
+<!-- foot header -->
+<script th:src="@{/scripts/app.min.js}"></script>
+<script th:src="@{/vendor/flot/jquery.flot.js}"></script>
+<script th:src="@{/vendor/flot/jquery.flot.resize.js}"></script>
+<script th:src="@{/vendor/flot/jquery.flot.categories.js}"></script>
+<script th:src="@{/vendor/flot/jquery.flot.stack.js}"></script>
+<script th:src="@{/vendor/flot/jquery.flot.time.js}"></script>
+<script th:src="@{/vendor/flot/jquery.flot.pie.js}"></script>
+<script th:src="@{/vendor/flot-spline/js/jquery.flot.spline.js}"></script>
+<script th:src="@{/vendor/flot.orderbars/js/jquery.flot.orderBars.js}"></script>
+<script th:src="@{/scripts/helpers/sameheight.js}"></script>
+<script th:src="@{/scripts/ui/dashboard.js}"></script>
+<!-- <script
+    th:src="@{/bootstrap-4.0.0/bootstrap-4.0.0/dist/js/bootstrap.min.js}"></script> -->
+
+<script
+        th:src="@{/vendor/datatables/media/js/datatables.bootstrap.html}"></script>
+<script type="text/javascript">
+    $('.datatable').dataTable({
+        'ajax' : 'data/datatables-arrays.json'
+    });
+</script>
+<!-- foot header -->
+
+</body>
+
+</html>

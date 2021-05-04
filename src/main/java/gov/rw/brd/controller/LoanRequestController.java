@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -86,5 +87,33 @@ public class LoanRequestController {
         }
     }
 
+    @RequestMapping("/view-requests")
+    public String returnLoaneeRequest (Model model) {
+        List<LoanRequest> list = service.getAllRequests();
+        model.addAttribute("requests",list);
+        return "account-view";
+    }
+    @RequestMapping("/view-docs/{name}")
+    public String viewDocuments (@PathVariable(name = "name") String name,Model model) {
+        System.out.println("file name is "+name);
+        LoanRequest loanRequest = service.getRequests(name);
 
+        model.addAttribute("request",loanRequest);
+        model.addAttribute("currentLevel",loanRequest);
+        return "account-view";
+    }
+
+    public String returnCurrentLevel(LoanRequest loanRequest){
+        System.out.println("DATA----"+loanRequest.getHasCreditComitteeAproved());
+        if(loanRequest.getHasCreditComitteeAproved()==null || loanRequest.getHasCreditComitteeAproved().equalsIgnoreCase("false")){
+          return "Credit Commitee";
+        }
+        if(loanRequest.getHasLoanOfficerApproved()==null || loanRequest.getHasLoanOfficerApproved().equalsIgnoreCase("false")) {
+            return "Loanee officer";
+        }
+        if(loanRequest.getHasRiskApproved()==null || loanRequest.getHasRiskApproved().equalsIgnoreCase("false")){
+            return "Risk";
+        }
+        return "";
+    }
 }

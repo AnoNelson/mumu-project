@@ -32,23 +32,24 @@ public class LoanRequest {
     private MultipartFile landDocuments;
     private String landDocumentsName;
     private BigDecimal loanAmount;
-    private boolean hasCreditComitteeAproved;
+    private String hasCreditComitteeAproved;
     @JsonFormat(pattern = "DD-MM-YYYY")
     private LocalDateTime creditCommitteeAprovalDate;
-    private boolean hasCreditComitteeDeclined;
+    private String hasCreditComitteeDeclined;
     private LocalDateTime creditCommitteeDenielDate;
     private String loanCommitteeType;
-    private boolean hasLoanOfficerApproved;
+    private String hasLoanOfficerApproved;
     private LocalDateTime loanOfficerAprovalDate;
-    private boolean hasLoanOfficerDeclined;
+    private String hasLoanOfficerDeclined;
     private LocalDateTime loanOfficerDenialDate;
-    private boolean hasRiskApproved;
+    private String hasRiskApproved;
     private LocalDateTime riskAprovalDate;
-    private boolean hasRiskDenied;
+    private String hasRiskDenied;
     private LocalDateTime riskDenialDate;
-    private boolean hasNotificationLetterSent;
+    private String hasNotificationLetterSent;
     private LocalDateTime notificationLetterSentDate;
     private LocalDateTime requestDate;
+    private String status;
     @PrePersist
     private void beforeSave(){
         if(loanAmount.compareTo(new BigDecimal("1000000000")) <=1){
@@ -148,11 +149,11 @@ public class LoanRequest {
         this.loanAmount = loanAmount;
     }
 
-    public boolean isHasCreditComitteeAproved() {
+    public String getHasCreditComitteeAproved() {
         return hasCreditComitteeAproved;
     }
 
-    public void setHasCreditComitteeAproved(boolean hasCreditComitteeAproved) {
+    public void setHasCreditComitteeAproved(String hasCreditComitteeAproved) {
         this.hasCreditComitteeAproved = hasCreditComitteeAproved;
     }
 
@@ -164,11 +165,11 @@ public class LoanRequest {
         this.creditCommitteeAprovalDate = creditCommitteeAprovalDate;
     }
 
-    public boolean isHasCreditComitteeDeclined() {
+    public String getHasCreditComitteeDeclined() {
         return hasCreditComitteeDeclined;
     }
 
-    public void setHasCreditComitteeDeclined(boolean hasCreditComitteeDeclined) {
+    public void setHasCreditComitteeDeclined(String hasCreditComitteeDeclined) {
         this.hasCreditComitteeDeclined = hasCreditComitteeDeclined;
     }
 
@@ -188,11 +189,11 @@ public class LoanRequest {
         this.loanCommitteeType = loanCommitteeType;
     }
 
-    public boolean isHasLoanOfficerApproved() {
+    public String getHasLoanOfficerApproved() {
         return hasLoanOfficerApproved;
     }
 
-    public void setHasLoanOfficerApproved(boolean hasLoanOfficerApproved) {
+    public void setHasLoanOfficerApproved(String hasLoanOfficerApproved) {
         this.hasLoanOfficerApproved = hasLoanOfficerApproved;
     }
 
@@ -204,11 +205,11 @@ public class LoanRequest {
         this.loanOfficerAprovalDate = loanOfficerAprovalDate;
     }
 
-    public boolean isHasLoanOfficerDeclined() {
+    public String getHasLoanOfficerDeclined() {
         return hasLoanOfficerDeclined;
     }
 
-    public void setHasLoanOfficerDeclined(boolean hasLoanOfficerDeclined) {
+    public void setHasLoanOfficerDeclined(String hasLoanOfficerDeclined) {
         this.hasLoanOfficerDeclined = hasLoanOfficerDeclined;
     }
 
@@ -220,11 +221,11 @@ public class LoanRequest {
         this.loanOfficerDenialDate = loanOfficerDenialDate;
     }
 
-    public boolean isHasRiskApproved() {
+    public String getHasRiskApproved() {
         return hasRiskApproved;
     }
 
-    public void setHasRiskApproved(boolean hasRiskApproved) {
+    public void setHasRiskApproved(String hasRiskApproved) {
         this.hasRiskApproved = hasRiskApproved;
     }
 
@@ -236,11 +237,11 @@ public class LoanRequest {
         this.riskAprovalDate = riskAprovalDate;
     }
 
-    public boolean isHasRiskDenied() {
+    public String getHasRiskDenied() {
         return hasRiskDenied;
     }
 
-    public void setHasRiskDenied(boolean hasRiskDenied) {
+    public void setHasRiskDenied(String hasRiskDenied) {
         this.hasRiskDenied = hasRiskDenied;
     }
 
@@ -252,11 +253,11 @@ public class LoanRequest {
         this.riskDenialDate = riskDenialDate;
     }
 
-    public boolean isHasNotificationLetterSent() {
+    public String getHasNotificationLetterSent() {
         return hasNotificationLetterSent;
     }
 
-    public void setHasNotificationLetterSent(boolean hasNotificationLetterSent) {
+    public void setHasNotificationLetterSent(String hasNotificationLetterSent) {
         this.hasNotificationLetterSent = hasNotificationLetterSent;
     }
 
@@ -274,6 +275,14 @@ public class LoanRequest {
 
     public void setRequestDate(LocalDateTime requestDate) {
         this.requestDate = requestDate;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     @Override

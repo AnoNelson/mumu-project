@@ -18,11 +18,6 @@
 </head>
 <body class="page-loading">
 
-	<div th:if="${session.department == '' || session.department == null}">
-		<script>
-			window.location.replace("login");
-		</script>
-	</div>
 
 	<!-- start loader -->
 	<div class="pageload">
@@ -59,23 +54,25 @@
 							class="table table-bordered table-condensed datatable m-b-0">
 							<thead>
 								<tr>
-									<th>Customer Names</th>
-									<th>Customer Number</th>
-									<th>Created on</th>
-									<th>Created, modified by</th>
-									<th>Documents</th>
+									<th>Loanee Name</th>
+									<th>Loanee Address</th>
+									<th>Loanee Email</th>
+									<th>Loanee Phone</th>
+									<th>Current Level</th>
+									<th>Action</th>
 								</tr>
 							</thead>
 							<tbody>
-								<tr th:each="a:${all}">
-									<td th:text="${a.customerName}"></td>
-									<td th:text="${a.AccountNumber}"></td>
-									<td th:text="${a.createdOn}"></td>
-									<td th:text="${a.csoName}"></td>
-									<td><a th:href="@{'/edit-account/' + ${a.id}}"
-										style="margin-right: 4rem"> <i class="icon-note"></i>
-									</a> <a th:href="@{'/view-account/' + ${a.id}}"> <i
-											class="icon-doc"></i> <span>View Account file(s)</span> <i
+								<tr th:each="a:${requests}">
+									<td th:text="${a.loanee.loaneeFullName}"></td>
+									<td th:text="${a.loanee.loaneeAdress}"></td>
+									<td th:text="${a.loanee.loaneeEmail}"></td>
+									<td th:text="${a.loanee.phoneNumber}"></td>
+									<td>
+										<th:block th:text="${returnCurrentLevel(a)}"/>
+									</td>
+									<td> <a th:href="@{'/view-account/' + ${a.requestId}}"> <i
+											class="icon-doc"></i> <span>View Documents)</span> <i
 											class="icon-arrow-right"></i>
 									</a></td>
 								</tr>
