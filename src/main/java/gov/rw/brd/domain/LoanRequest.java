@@ -52,9 +52,9 @@ public class LoanRequest {
     private String status;
     @PrePersist
     private void beforeSave(){
-        if(loanAmount.compareTo(new BigDecimal("1000000000")) <=1){
+        if(loanAmount.compareTo(new BigDecimal("1000000000")) <=0){
             loanCommitteeType = "Credit committee";
-        }else if(loanAmount.compareTo(new BigDecimal("3000000000")) <=1){
+        }else if(loanAmount.compareTo(new BigDecimal("3000000000")) <=0){
             loanCommitteeType = "Board Credit committee";
         }else{
             loanCommitteeType = "Full board Credit committee";
@@ -289,7 +289,6 @@ public class LoanRequest {
     public String toString() {
         return "LoanRequest{" +
                 "requestId='" + requestId + '\'' +
-                ", loanee=" + loanee +
                 ", requestLetter=" + requestLetter +
                 ", requestLetterName='" + requestLetterName + '\'' +
                 ", businessPlan=" + businessPlan +
@@ -316,5 +315,30 @@ public class LoanRequest {
                 ", notificationLetterSentDate=" + notificationLetterSentDate +
                 ", requestDate=" + requestDate +
                 '}';
+    }
+
+    public String returnCurrentLevel(LoanRequest loanRequest){
+        System.out.println("DATA----"+loanRequest.getHasCreditComitteeAproved());
+        if(loanRequest.getHasCreditComitteeAproved()==null || loanRequest.getHasCreditComitteeAproved().equalsIgnoreCase("0")){
+            return "Credit Commitee";
+        }
+        if(loanRequest.getHasLoanOfficerApproved()==null || loanRequest.getHasLoanOfficerApproved().equalsIgnoreCase("0")) {
+            return "Loanee officer";
+        }
+        if(loanRequest.getHasRiskApproved()==null || loanRequest.getHasRiskApproved().equalsIgnoreCase("0")){
+            return "Risk";
+        }
+        return "";
+    }
+    public String returnStatus(LoanRequest loanRequest){
+        System.out.println("DATA----"+loanRequest.getHasCreditComitteeAproved());
+        if(loanRequest.getHasCreditComitteeDeclined()==null){
+            return "Pending";
+        }
+        if(loanRequest.getHasCreditComitteeDeclined().equalsIgnoreCase("true") || loanRequest.getHasRiskDenied().equalsIgnoreCase("true") || loanRequest.getHasLoanOfficerDeclined().equalsIgnoreCase("true")){
+            return "true";
+        }else{
+            return "Pending";
+        }
     }
 }

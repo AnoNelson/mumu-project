@@ -18,7 +18,7 @@
 .card {
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 	transition: 0.3s;
-	width: 10%;
+	width: 20%;
 }
 
 .card:hover {
@@ -59,8 +59,8 @@
 
 			<!-- start main content -->
 			<div class="main-content">
-				<div class="page-title">
-					<div class="sub-title">Accounts</div>
+				<div class="page-title" style="align-content: center; text-align: center; font-weight: 500">
+					<div class="sub-title"><p th:text="${request.loanee.loaneeFullName} +' Files'"> </p></div>
 				</div>
 				<!--  <div class="card bg-white">
 				<div class="card-header">
@@ -68,16 +68,45 @@
 				</div> -->
 
 				<div style="margin: 2rem" class="row">
-					<div style="margin-right: 2rem" th:each="a,i :${files}"
+					<div style="margin-right: 2rem"
 						class="card bg-white col-md-3">
-						<a th:href="@{'/downloadFile/' + ${a}}"> <img
-							th:src="@{/images/pdf-icon.png}" alt="pdf" style="width: 100%;">
+						<a th:href="@{'/downloadFile/' + ${request.requestLetterName}}"> <img
+								th:src="@{/image/pdf.jpg}" alt="pdf" style="width: 100%;">
 						</a>
 						<!-- <p style="width:100%;" th:text="${files.get(i.index)}"> </p> -->
-						<p style="width: 100%;"
-							th:text="${category.get(i.index) + ' file'}"></p>
-						created by:
-						<p style="width: 100%;" th:text="${cso.get(i.index)}"></p>
+						<p style="width: 100%"></p>
+						 Application letter
+						<p style="width: 100%;"></p>
+					</div>
+					<div style="margin-right: 2rem"
+						 class="card bg-white col-md-3">
+						<a th:href="@{'/downloadFile/'+ ${request.requestLetterName}}"> <img
+								th:src="@{/image/pdf.jpg}" alt="pdf" style="width: 100%;">
+						</a>
+						<!-- <p style="width:100%;" th:text="${files.get(i.index)}"> </p> -->
+						<p style="width: 100%"></p>
+						Bussiness Plan
+						<p style="width: 100%;"></p>
+					</div>
+					<div style="margin-right: 2rem"
+						 class="card bg-white col-md-3">
+						<a th:href="@{'/downloadFile/' + ${request.requestLetterName}}"> <img
+								th:src="@{/image/pdf.jpg}" alt="pdf" style="width: 100%;">
+						</a>
+						<!-- <p style="width:100%;" th:text="${files.get(i.index)}"> </p> -->
+						<p style="width: 100%"></p>
+						Bank Statement
+						<p style="width: 100%;"></p>
+					</div>
+					<div style="margin-right: 2rem"
+						 class="card bg-white col-md-3">
+						<a th:href="@{'/downloadFile/' + ${request.requestLetterName}}"> <img
+								th:src="@{/image/pdf.jpg}" alt="pdf" style="width: 100%;">
+						</a>
+						<!-- <p style="width:100%;" th:text="${files.get(i.index)}"> </p> -->
+						<p style="width: 100%"></p>
+						Land Document
+						<p style="width: 100%;"></p>
 					</div>
 				</div>
 			</div>
