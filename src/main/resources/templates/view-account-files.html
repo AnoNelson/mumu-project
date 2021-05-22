@@ -108,6 +108,18 @@
 						Land Document
 						<p style="width: 100%;"></p>
 					</div>
+					<div class="page-title" style="align-content: center; text-align: center; font-weight: 500">
+						<div class="sub-title">
+							<form action="#" th:action="@{'/Approve/'}" method="post">
+								<button type="submit" style="float: left" class="btn btn-warning cancel" name="action" value="edit">
+									<i class="icon-ban">Reject</i>
+								</button>
+								<button type="submit" style="float: right" class="btn btn-success success" name="action" value="edit">
+									<i class="icon-ban">Approve</i>
+								</button>
+							</form>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
