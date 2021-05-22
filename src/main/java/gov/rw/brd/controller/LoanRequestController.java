@@ -101,7 +101,7 @@ public class LoanRequestController {
     public String viewDocuments (@PathVariable(name = "name") String name,Model model) {
         System.out.println("file name is " + name);
         LoanRequest loanRequest = service.getRequests(name);
-        System.out.println(loanRequest.getLoanee());
+        System.out.println("data =>>"+loanRequest.getLoanee());
         model.addAttribute("request",loanRequest);
         return "view-account-files";
     }
@@ -117,6 +117,13 @@ public class LoanRequestController {
                 outputStream.write(data, 0, nRead);
             }
         };
+    }
+
+    @RequestMapping("/view-report")
+    public String viewReport (Model model) {
+        List<LoanRequest> list = service.getAllRequests();
+        model.addAttribute("list", list);
+        return "report-view";
     }
 
     public String returnCurrentLevel(LoanRequest loanRequest){
