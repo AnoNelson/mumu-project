@@ -21,6 +21,9 @@ public class Loanee {
     private LocalDateTime createdDate;
     @OneToOne(mappedBy = "loanee",cascade = CascadeType.ALL)
     private LoanRequest loanRequest;
+    @OneToOne
+    @JoinColumn(name = "userId", referencedColumnName = "user_id")
+    private User user;
 
     @PrePersist
     private void onCreate(){
@@ -81,6 +84,14 @@ public class Loanee {
 
     public void setLoanRequest(LoanRequest loanRequest) {
         this.loanRequest = loanRequest;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override

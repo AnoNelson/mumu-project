@@ -86,6 +86,9 @@ public class AuthController {
         if(userRepository.findByUsername(user.getUsername()) != null){
             throw new GlobalException("username already used");
         }
+        if(user.getRole()==null || user.getRole().trim().equalsIgnoreCase("")){
+            user.setRole("user");
+        }
         System.out.println(user);
         if(userRepository.findByEmail(user.getEmail()) == null){
             UUID uuid = UUID.randomUUID();
@@ -110,7 +113,13 @@ public class AuthController {
     }
 
     @RequestMapping(value = "/signup",method = RequestMethod.GET)
-    public String registerPage(@ModelAttribute("user") User user) {
+    public String registerPage(@ModelAttribute("user") User user,HttpSession session,Model model) {
+        boolean use = false;
+        if(session.getAttribute("username") !=null){
+          use = true;
+        }
+        System.out.println("user --> "+use);
+        model.addAttribute("use", use);
         return "signup";
     }
 

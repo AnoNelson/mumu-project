@@ -38,7 +38,7 @@ public class AppController {
     }
 
     @RequestMapping("/user-account")
-    public String getAllUsers (Model model) {
+    public String getAllUsers (Model model,HttpSession session) {
         List<User> users = userRepository.findAll();
         model.addAttribute("usersList",users);
         return "users";

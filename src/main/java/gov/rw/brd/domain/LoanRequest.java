@@ -35,17 +35,11 @@ public class LoanRequest {
     private String hasCreditComitteeAproved;
     @JsonFormat(pattern = "DD-MM-YYYY")
     private LocalDateTime creditCommitteeAprovalDate;
-    private String hasCreditComitteeDeclined;
-    private LocalDateTime creditCommitteeDenielDate;
     private String loanCommitteeType;
     private String hasLoanOfficerApproved;
     private LocalDateTime loanOfficerAprovalDate;
-    private String hasLoanOfficerDeclined;
-    private LocalDateTime loanOfficerDenialDate;
     private String hasRiskApproved;
     private LocalDateTime riskAprovalDate;
-    private String hasRiskDenied;
-    private LocalDateTime riskDenialDate;
     private String hasNotificationLetterSent;
     private LocalDateTime notificationLetterSentDate;
     private LocalDateTime requestDate;
@@ -165,21 +159,6 @@ public class LoanRequest {
         this.creditCommitteeAprovalDate = creditCommitteeAprovalDate;
     }
 
-    public String getHasCreditComitteeDeclined() {
-        return hasCreditComitteeDeclined;
-    }
-
-    public void setHasCreditComitteeDeclined(String hasCreditComitteeDeclined) {
-        this.hasCreditComitteeDeclined = hasCreditComitteeDeclined;
-    }
-
-    public LocalDateTime getCreditCommitteeDenielDate() {
-        return creditCommitteeDenielDate;
-    }
-
-    public void setCreditCommitteeDenielDate(LocalDateTime creditCommitteeDenielDate) {
-        this.creditCommitteeDenielDate = creditCommitteeDenielDate;
-    }
 
     public String getLoanCommitteeType() {
         return loanCommitteeType;
@@ -205,21 +184,6 @@ public class LoanRequest {
         this.loanOfficerAprovalDate = loanOfficerAprovalDate;
     }
 
-    public String getHasLoanOfficerDeclined() {
-        return hasLoanOfficerDeclined;
-    }
-
-    public void setHasLoanOfficerDeclined(String hasLoanOfficerDeclined) {
-        this.hasLoanOfficerDeclined = hasLoanOfficerDeclined;
-    }
-
-    public LocalDateTime getLoanOfficerDenialDate() {
-        return loanOfficerDenialDate;
-    }
-
-    public void setLoanOfficerDenialDate(LocalDateTime loanOfficerDenialDate) {
-        this.loanOfficerDenialDate = loanOfficerDenialDate;
-    }
 
     public String getHasRiskApproved() {
         return hasRiskApproved;
@@ -235,22 +199,6 @@ public class LoanRequest {
 
     public void setRiskAprovalDate(LocalDateTime riskAprovalDate) {
         this.riskAprovalDate = riskAprovalDate;
-    }
-
-    public String getHasRiskDenied() {
-        return hasRiskDenied;
-    }
-
-    public void setHasRiskDenied(String hasRiskDenied) {
-        this.hasRiskDenied = hasRiskDenied;
-    }
-
-    public LocalDateTime getRiskDenialDate() {
-        return riskDenialDate;
-    }
-
-    public void setRiskDenialDate(LocalDateTime riskDenialDate) {
-        this.riskDenialDate = riskDenialDate;
     }
 
     public String getHasNotificationLetterSent() {
@@ -300,17 +248,11 @@ public class LoanRequest {
                 ", loanAmount=" + loanAmount +
                 ", hasCreditComitteeAproved=" + hasCreditComitteeAproved +
                 ", creditCommitteeAprovalDate=" + creditCommitteeAprovalDate +
-                ", hasCreditComitteeDeclined=" + hasCreditComitteeDeclined +
-                ", creditCommitteeDenielDate=" + creditCommitteeDenielDate +
                 ", loanCommitteeType='" + loanCommitteeType + '\'' +
                 ", hasLoanOfficerApproved=" + hasLoanOfficerApproved +
                 ", loanOfficerAprovalDate=" + loanOfficerAprovalDate +
-                ", hasLoanOfficerDeclined=" + hasLoanOfficerDeclined +
-                ", loanOfficerDenialDate=" + loanOfficerDenialDate +
                 ", hasRiskApproved=" + hasRiskApproved +
                 ", riskAprovalDate=" + riskAprovalDate +
-                ", hasRiskDenied=" + hasRiskDenied +
-                ", riskDenialDate=" + riskDenialDate +
                 ", hasNotificationLetterSent=" + hasNotificationLetterSent +
                 ", notificationLetterSentDate=" + notificationLetterSentDate +
                 ", requestDate=" + requestDate +
@@ -323,7 +265,7 @@ public class LoanRequest {
             return "Credit Commitee";
         }
         if(loanRequest.getHasLoanOfficerApproved()==null || loanRequest.getHasLoanOfficerApproved().equalsIgnoreCase("0")) {
-            return "Loanee officer";
+            return "officer of loan";
         }
         if(loanRequest.getHasRiskApproved()==null || loanRequest.getHasRiskApproved().equalsIgnoreCase("0")){
             return "Risk";
@@ -332,10 +274,10 @@ public class LoanRequest {
     }
     public String returnStatus(LoanRequest loanRequest){
         System.out.println("DATA----"+loanRequest.getHasCreditComitteeAproved());
-        if(loanRequest.getHasCreditComitteeDeclined()==null){
+        if(loanRequest.getHasCreditComitteeAproved()==null || loanRequest.getHasRiskApproved()==null || loanRequest.getHasLoanOfficerApproved()==null){
             return "Pending";
         }
-        if(loanRequest.getHasCreditComitteeDeclined().equalsIgnoreCase("true") || loanRequest.getHasRiskDenied().equalsIgnoreCase("true") || loanRequest.getHasLoanOfficerDeclined().equalsIgnoreCase("true")){
+        if(loanRequest.getHasCreditComitteeAproved().equalsIgnoreCase("D") || loanRequest.getHasRiskApproved().equalsIgnoreCase("D") || loanRequest.getHasLoanOfficerApproved().equalsIgnoreCase("D")){
             return "true";
         }else{
             return "Pending";

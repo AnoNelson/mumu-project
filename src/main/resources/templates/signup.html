@@ -28,7 +28,7 @@
 						<div class="card-block">
 							<form role="form" class="form-layout"
 								enctype="application/x-www-form-urlencoded"
-								th:action="@{/signup}" th:object="${user}"
+								th:action="@{/signup}"
 								method="post">
 								<div class="text-center m-b">
 									<h4 class="text-uppercase">Welcome back</h4>
@@ -39,22 +39,25 @@
 								<div class="form-inputs">
 									<label class="text-uppercase">Your username</label> <input
 										type="text" name="username" class="form-control input-lg"
-										th:field="*{username}" placeholder="Username" required>
+										th:field="*{user.username}" placeholder="Username" required>
 									<label class="text-uppercase">Your Password</label> <input
 										type="text" name="password" class="form-control input-lg"
-										th:field="*{password}" placeholder="Password" required
+										th:field="*{user.password}" placeholder="Password" required
 										AUTOCOMPLETE="off">
 									<label class="text-uppercase">Your names</label> <input
 										type="text" name="full name" class="form-control input-lg"
-										th:field="*{names}" placeholder="Username" required>
+										th:field="*{user.names}" placeholder="Username" required>
 									<label class="text-uppercase">Your Email</label> <input
 										type="email" name="names" class="form-control input-lg"
-										th:field="*{email}" placeholder="email" required
+										th:field="*{user.email}" placeholder="email" required
 										AUTOCOMPLETE="off">
-									<label class="text-uppercase">Role</label> <input
-										type="text" name="role" class="form-control input-lg"
-										th:field="*{role}" placeholder="role" required
-										AUTOCOMPLETE="off">
+									<label th:if="${use}" class="text-uppercase">Role</label>
+									<select th:if="${use}" th:field="*{user.role}" class="form-control inputstl" aria-label="Default select example" style="width: 421px;margin-bottom: 20px;">
+                                        <option th:value="'User'" th:text="'Normal User'" selected></option>
+                                        <option th:value="'officer'" th:text="'Loan Officer'"></option>
+										<option th:value="'credit'" th:text="'Credit officer'"></option>
+										<option th:value="'rik'" th:text="'Risk Officer'"></option>
+									</select>
 								</div>
 								<button style="background: #D94B01"
 									class="btn btn-primary btn-block btn-lg m-b" type="submit">Login</button>
