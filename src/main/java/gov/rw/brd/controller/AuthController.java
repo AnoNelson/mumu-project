@@ -129,4 +129,8 @@ public class AuthController {
         session.removeAttribute("role");
         return "redirect:/login";
     }
+
+    public boolean checkAdminpPriviladge(HttpSession session){
+return true;
+    }
 }

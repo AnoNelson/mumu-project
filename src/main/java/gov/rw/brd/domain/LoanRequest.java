@@ -40,6 +40,8 @@ public class LoanRequest {
     private LocalDateTime loanOfficerAprovalDate;
     private String hasRiskApproved;
     private LocalDateTime riskAprovalDate;
+    private String hasLegalApproved;
+    private LocalDateTime legalAprovalDate;
     private String hasNotificationLetterSent;
     private LocalDateTime notificationLetterSentDate;
     private LocalDateTime requestDate;
@@ -231,6 +233,22 @@ public class LoanRequest {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getHasLegalApproved() {
+        return hasLegalApproved;
+    }
+
+    public void setHasLegalApproved(String hasLegalApproved) {
+        this.hasLegalApproved = hasLegalApproved;
+    }
+
+    public LocalDateTime getLegalAprovalDate() {
+        return legalAprovalDate;
+    }
+
+    public void setLegalAprovalDate(LocalDateTime legalAprovalDate) {
+        this.legalAprovalDate = legalAprovalDate;
     }
 
     @Override

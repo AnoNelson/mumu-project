@@ -6,6 +6,8 @@ import gov.rw.brd.domain.EStatus;
 import gov.rw.brd.domain.LoginRequest;
 import gov.rw.brd.domain.User;
 import gov.rw.brd.exceptions.GlobalException;
+import gov.rw.brd.repository.LoanRequestRepository;
+import gov.rw.brd.repository.LoaneeRepository;
 import gov.rw.brd.repository.UserRepository;
 import gov.rw.brd.service.EmailProvider;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,8 +34,16 @@ public class AppController {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
     @Autowired
     private EmailProvider emailProvider;
+    @Autowired
+    private LoaneeRepository loaneeRepo;
+    @Autowired
+    private LoanRequestRepository requestRepo;
+
     @RequestMapping("/dashboard")
-    public String getLogin(@ModelAttribute("auth") LoginRequest loginRequest) {
+    public String getLogin(@ModelAttribute("auth") LoginRequest loginRequest,Model model) {
+        System.out.println(loaneeRepo.getGroupByName().split(",").toString());
+        model.addAttribute("dash", loaneeRepo.getGroupByName().split(","));
+        model.addAttribute("dash1", requestRepo.getDashboardData().split(","));
         return "index";
     }
 
@@ -41,6 +51,7 @@ public class AppController {
     public String getAllUsers (Model model,HttpSession session) {
         List<User> users = userRepository.findAll();
         model.addAttribute("usersList",users);
+
         return "users";
     }
 
@@ -48,7 +59,7 @@ public class AppController {
     public ModelAndView edit(@PathVariable(value = "id") long id) {
         ModelAndView view = new ModelAndView();
         User user = userRepository.findById(id).orElse(new User());
-        view.addObject("user",user);
+        view.addObject("user", user);
         view.setViewName("user-edit");
         return view;
     }

@@ -44,7 +44,8 @@ public class AppService {
         }
         return null;
     }
-    public List<LoanRequest> getAllRequests(String role,String username){
+    public List<LoanRequest>    getAllRequests(String role,String username){
+        System.out.println("role here "+role);
         List<LoanRequest> list =  loanRequestRepository.findAll();
         List<LoanRequest> list2 = new ArrayList<>();
         if(role.trim().equalsIgnoreCase("user")){
@@ -60,6 +61,9 @@ public class AppService {
                     list2.add(l);
                 }
             }
+        }
+        if(role.trim().equalsIgnoreCase("admin")){
+            list2 = list;
         }
         System.out.println(list2);
         return list2;

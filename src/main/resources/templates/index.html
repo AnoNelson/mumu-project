@@ -23,7 +23,7 @@
         </c:if> -->
 </head>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-<script type="text/javascript">
+<script th:inline="javascript">
 
     // Load the Visualization API and the corechart package.
     google.charts.load('current', {'packages': ['corechart']});
@@ -40,17 +40,30 @@
         var data = new google.visualization.DataTable();
         data.addColumn('string', 'Topping');
         data.addColumn('number', 'Slices');
+        console.log(parseInt(/*[[${dash[0]}]]*/));
         data.addRows([
-            ['Mushrooms', 3],
-            ['Onions', 1],
-            ['Olives', 1],
-            ['Zucchini', 1],
-            ['Pepperoni', 2]
+            ['Divorced', parseInt(/*[[${dash[0]}]]*/)],
+            ['Single', parseInt(/*[[${dash[1]}]]*/)],
+            ['Married', parseInt(/*[[${dash[2]}]]*/)],
+        ]);
+        var data2 = new google.visualization.DataTable();
+        data2.addColumn('string', 'Topping');
+        data2.addColumn('number', 'Slices');
+
+        data2.addRows([
+//            ['Divorced', parseInt(/*[[${dash1[0]}]]*/)],
+            ['Approved', 1],
+            ['Declined', parseInt(/*[[${dash1[1]}]]*/)],
         ]);
 
         // Set chart options
         var options = {
-            'title': 'How Much Pizza I Ate Last Night',
+            'title': 'Status based on Martial status ',
+            'width': 400,
+            'height': 300
+        };
+        var options1 = {
+            'title': 'Status of Requests ',
             'width': 400,
             'height': 300
         };
@@ -59,7 +72,7 @@
         var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
         var chart2 = new google.visualization.PieChart(document.getElementById('chart_div2'));
         chart.draw(data, options);
-        chart2.draw(data, options);
+        chart2.draw(data2, options1);
     }
 </script>
 

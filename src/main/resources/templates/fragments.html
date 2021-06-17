@@ -8,8 +8,6 @@
 <meta name="viewport"
 	content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1" />
 <link rel="stylesheet" th:href="@{/styles/app.min.css}" />
-<!-- <link rel="stylesheet"
-	th:href="@{/bootstrap-4.0.0/bootstrap-4.0.0/dist/css/bootstrap.min.css}" /> -->
 <link rel="stylesheet"
 	href="vendor/datatables/media/css/datatables.bootstrap.html" />
 
@@ -46,21 +44,25 @@
 			</div>
 			<nav role="navigation">
 				<ul class="nav">
-					<li><a th:href="@{/dashboard}"> <i class="icon-compass"></i>
+					<li th:if="${session.role!= null && session.role eq 'admin'}" ><a th:href="@{/dashboard}"> <i class="icon-compass"></i>
 							<span>Dashboard</span>
 					</a></li>
-					<li><a th:href="@{/signup}"> <i class="icon-plus"></i>
+					<li th:if="${session.role!= null && session.role eq 'admin'}"><a th:href="@{/signup}"> <i class="icon-plus"></i>
 							<span>Add Account</span>
 					</a></li>
-					<li><a th:href="@{/user-account}"> <i class="icon-plus"></i>
+					<li th:if="${session.role!= null && session.role eq 'admin'}" ><a th:href="@{/user-account}"> <i class="icon-plus"></i>
 						<span>UserS</span>
 					</a></li>
-					<li><a th:href="@{/request-loan}"> <i class="icon-plus"></i>
+					<li th:if="${session.role!= null && session.role eq 'admin'}"><a th:href="@{/request-loan}"> <i class="icon-plus"></i>
 						<span>Request Loan</span>
 					</a></li>
 					<li><a th:href="@{/view-requests}"> <i class="icon-plus"></i>
 						<span>View Requests</span>
 					</a></li>
+					<li><a th:href="@{/pdf}"> <i class="icon-plus"></i>
+						<span>Generate Report</span>
+					</a></li>
+
 				</ul>
 			</nav>
 		</div>

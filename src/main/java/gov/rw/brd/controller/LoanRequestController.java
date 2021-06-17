@@ -171,6 +171,10 @@ public class LoanRequestController {
             loanRequest.setHasRiskApproved(sone);
             loanRequest.setRiskAprovalDate(LocalDateTime.now());
         }
+        else if(role.equalsIgnoreCase("legal")) {
+            loanRequest.setHasLegalApproved(sone);
+            loanRequest.setLegalAprovalDate(LocalDateTime.now());
+        }
       return loanRequest;
     }
 }

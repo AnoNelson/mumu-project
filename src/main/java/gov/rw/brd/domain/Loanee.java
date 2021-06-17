@@ -18,6 +18,8 @@ public class Loanee {
     private String loaneeAdress;
     private String loaneeEmail;
     private String phoneNumber;
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
     private LocalDateTime createdDate;
     @OneToOne(mappedBy = "loanee",cascade = CascadeType.ALL)
     private LoanRequest loanRequest;
@@ -94,6 +96,14 @@ public class Loanee {
         this.user = user;
     }
 
+    public Gender getGender() {
+        return gender;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
+    }
+
     @Override
     public String toString() {
         return "Loanee{" +
@@ -104,6 +114,7 @@ public class Loanee {
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", createdDate=" + createdDate +
                 ", loanRequest=" + loanRequest +
+                ", gender=" + gender +
                 '}';
     }
 }
