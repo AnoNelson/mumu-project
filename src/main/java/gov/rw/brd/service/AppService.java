@@ -44,20 +44,19 @@ public class AppService {
         }
         return null;
     }
-    public List<LoanRequest>    getAllRequests(String role,String username){
-        System.out.println("role here "+role);
+    public List<LoanRequest>  getAllRequests(String role,String username){
+
         List<LoanRequest> list =  loanRequestRepository.findAll();
         List<LoanRequest> list2 = new ArrayList<>();
         if(role.trim().equalsIgnoreCase("user")){
             for(LoanRequest l : list){
-
                 if(l.getLoanee().getUser()!=null && l.getLoanee().getUser().getUsername().equalsIgnoreCase(username)){
                     list2.add(l);
                 }
             }
         }else{
             for(LoanRequest l : list){
-                if(l.returnCurrentLevel(l).toLowerCase().startsWith(role)){
+                if(l.returnCurrentLevel(l).toLowerCase().startsWith(role.toLowerCase())){
                     list2.add(l);
                 }
             }

@@ -2,17 +2,17 @@ package gov.rw.brd.controller;
 
 import gov.rw.brd.domain.LoanRequest;
 import gov.rw.brd.domain.Loanee;
+import gov.rw.brd.domain.RequestCheck;
 import gov.rw.brd.domain.User;
 import gov.rw.brd.repository.LoanRequestRepository;
 import gov.rw.brd.repository.LoaneeRepository;
 import gov.rw.brd.service.AppService;
+import gov.rw.brd.service.EmailProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -47,6 +47,8 @@ public class LoanRequestController {
 
     @Autowired
     private AppService service;
+    @Autowired
+    private EmailProvider emailProvider;
 
     private String UPLOAD_DIR = "C:\\xampp\\htdocs\\loanAppFiles\\";
 
@@ -106,17 +108,22 @@ public class LoanRequestController {
 
     @RequestMapping("/view-requests")
     public String returnLoaneeRequest (Model model,HttpSession session) {
-        String role = session.getAttribute("role").toString();
-        String username = (String) session.getAttribute("username");
-        List<LoanRequest> list = service.getAllRequests(role,username);
-        model.addAttribute("requests",list);
-        return "account-view";
+        if(session.getAttribute("role") !=null){
+            String role = session.getAttribute("role").toString();
+            String username = (String) session.getAttribute("username");
+            List<LoanRequest> list = service.getAllRequests(role,username);
+            model.addAttribute("requests",list);
+            return "account-view";
+        }else{
+            return "redirect:/login";
+        }
     }
     @RequestMapping("/view-docs/{name}")
     public String viewDocuments (@PathVariable(name = "name") String name,Model model) {
         System.out.println("file name is " + name);
         LoanRequest loanRequest = service.getRequests(name);
         System.out.println("data =>>"+loanRequest.getLoanee());
+        model.addAttribute("check",new RequestCheck());
         model.addAttribute("request",loanRequest);
         return "view-account-files";
     }
@@ -142,23 +149,25 @@ public class LoanRequestController {
         return "report-view";
     }
 
-    @RequestMapping("/action/{id}")
-    public String requestAction(HttpSession session,@PathVariable(name = "id") String id,@PathParam(value = "action") String action){
+    @RequestMapping(value = "/action/{id}", method = RequestMethod.POST)
+    public String requestAction(HttpSession session,@PathVariable(name = "id") String id,@PathParam(value = "action") String action, RequestCheck comment){
         String role = session.getAttribute("role").toString();
         System.out.println("role ----> "+session.getAttributeNames().toString());
-        System.out.println("action ---> "+action);
+        System.out.println("action ---> "+comment);
         LoanRequest loanRequest = service.getRequests(id);
-        loanRequest = service.save(handleRequestAction(role,loanRequest,action));
+        loanRequest = service.save(handleRequestAction(role,loanRequest,action,comment.getComments()));
         System.out.println(loanRequest);
         return "redirect:/view-requests";
     }
 
-    public LoanRequest handleRequestAction(String role,LoanRequest loanRequest,String action){
+    public LoanRequest handleRequestAction(String role,LoanRequest loanRequest,String action,String comments){
         String sone = null;
         if(action.equalsIgnoreCase("approve")){
             sone = "A";
         }else{
             sone = "D";
+            loanRequest.setStatus("D");
+            emailProvider.sendApprovalEmaail(loanRequest.getLoanee(),"Rejected");
         }
         if(role.equalsIgnoreCase("officer")){
          loanRequest.setHasLoanOfficerApproved(sone);
@@ -175,6 +184,11 @@ public class LoanRequestController {
             loanRequest.setHasLegalApproved(sone);
             loanRequest.setLegalAprovalDate(LocalDateTime.now());
         }
+        if(sone.equalsIgnoreCase("A") && role.equalsIgnoreCase("legal")){
+            loanRequest.setStatus("A");
+            emailProvider.sendApprovalEmaail(loanRequest.getLoanee(),"Approved");
+        }
+        loanRequest.setDeclineReason(comments);
       return loanRequest;
     }
 }

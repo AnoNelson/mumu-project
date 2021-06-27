@@ -31,7 +31,6 @@ public class User implements UserDetails {
     @NotBlank(message = "user full names must not be blank")
     private String names;
     @NotBlank(message = "username must not be black")
-    @Size(min = 5, max = 10, message = "username must be 5 to 10 characters")
     private String username;
     @NotBlank(message = "email must not be blank")
     @Column(unique = true)

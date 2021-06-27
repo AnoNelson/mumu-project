@@ -44,6 +44,8 @@ public class AppController {
         System.out.println(loaneeRepo.getGroupByName().split(",").toString());
         model.addAttribute("dash", loaneeRepo.getGroupByName().split(","));
         model.addAttribute("dash1", requestRepo.getDashboardData().split(","));
+        System.out.println("dash1 " + requestRepo.getDashboardData().split(",")[1]);
+        model.addAttribute("data", requestRepo.getOrderedData());
         return "index";
     }
 

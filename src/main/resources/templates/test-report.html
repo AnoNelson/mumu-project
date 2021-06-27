@@ -98,13 +98,18 @@
         }
     </style>
 </head>
+<div th:if="${session.username == '' || session.username == null}">
+    <script>
+        window.location.replace("login");
+    </script>
+</div>
 <body>
 <div>
     <h4>Loan Request System</h4>
     <h4>Kigali, Rwanda</h4>
     <h4>support@rmc.gov</h4>
 </div>
-<h1>Approved Laon to Client</h1>
+<h1 th:text="${report}+'Approved Loan to Client'"></h1>
             <table>
                 <thead>
                 <tr>
@@ -134,8 +139,8 @@
                     <td>
                     <td>
                     <td>
-                    <td>Total
-                    <td>Yes
+                    <td>
+                    <td>
                 </td>
                 </tbody>
             </table>

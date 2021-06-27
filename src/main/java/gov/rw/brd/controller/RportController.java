@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
@@ -19,6 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.http.MediaType;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -41,17 +43,30 @@ public class RportController {
         this.templateEngine = templateEngine;
     }
 
-    @RequestMapping(path = "/pdf")
-    public ResponseEntity<?> getPDF(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    @RequestMapping(path = "/pdf/{id}")
+    public ResponseEntity<?> getPDF(@PathVariable(name = "id") String id,HttpServletRequest request, HttpServletResponse response) throws IOException {
 
         /* Do Business Logic*/
-
         List<LoanRequest> list = repo.findAll();
+        System.out.println("the id is ==>  " + id);
+        if(id!=null ){
+            if(id.equalsIgnoreCase("approved")){
+                list = new LoanRequest().getApproved(list);
+            }else if(id.equalsIgnoreCase("pending")){
+                list = new LoanRequest().getPending(list);
+            }else if(id.equalsIgnoreCase("Declined")){
+                list = new LoanRequest().getDeclined(list);
+            }else{
+                list = new ArrayList<>();
+            }
+        }
+
 
         /* Create HTML using Thymeleaf template Engine */
 
         WebContext context = new WebContext(request, response, servletContext);
         context.setVariable("requests", list);
+        context.setVariable("report", id);
         String orderHtml = templateEngine.process("test-report", context);
 
         /* Setup Source and target I/O streams */
@@ -76,10 +91,11 @@ public class RportController {
                 .body(bytes);
 
     }
-    @RequestMapping(path = "/pdf/test")
+    @RequestMapping(path = "/pdf/test/data")
     private String testReport(Model model){
-        model.addAttribute("requests",repo.findAll());
+        model.addAttribute("requests", repo.findAll());
         return "test-report";
     }
+
 
 }

@@ -31,6 +31,11 @@
 </style>
 <title>Digital Archive</title>
 </head>
+<div th:if="${session.username == '' || session.username == null}">
+	<script>
+		window.location.replace("login");
+	</script>
+</div>
 
 <body class="page-loading">
 
@@ -109,14 +114,32 @@
 						<p style="width: 100%;"></p>
 					</div>
 					<div class="page-title" style="align-content: center; text-align: center; font-weight: 500">
-						<div class="sub-title">
-							<form action="#" th:action="@{'/action/'+ ${request.requestId}}" method="post">
-								<button type="submit" style="float: left" class="btn btn-warning cancel" name="action" value="reject">
-									<i class="icon-ban">Reject</i>
-								</button>
-								<button type="submit" style="float: right" class="btn btn-success success" name="action" value="approve">
-									<i class="icon-ban">Approve</i>
-								</button>
+						<div class="sub-title" th:if="${session.role!= null && session.role ne 'user' && session.role ne 'admin'}">
+							<form action="#"  th:action="@{'/action/'+ ${request.requestId}}" th:object="${check}" method="post" enctype="multipart/form-data">
+
+								<div class="row">
+									<div class="form-group m-b col-md-4">
+										<button type="submit" style="float: left" class="btn btn-warning cancel" name="action" value="reject"> Reject
+										</button>
+									</div>
+									<div class="form-group m-b col-md-4">
+										<label>Comments</label> <textarea type="text"
+																			   class="form-control"
+																		       name="comment"
+																		       th:field="*{comments}"
+																			   placeholder="Enter Comments if you are about to decline"  required></textarea>
+									</div>
+
+
+									<div class="form-group m-b col-md-4">
+										<button type="submit" style="float: right" class="btn btn-success success" name="action" value="approve">
+											Approve
+										</button>
+									</div>
+
+									<div class="form-group m-b col-md-6">
+								</div>
+
 							</form>
 						</div>
 					</div>

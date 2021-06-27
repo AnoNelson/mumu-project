@@ -51,16 +51,22 @@
 							<span>Add Account</span>
 					</a></li>
 					<li th:if="${session.role!= null && session.role eq 'admin'}" ><a th:href="@{/user-account}"> <i class="icon-plus"></i>
-						<span>UserS</span>
+						<span>Users</span>
 					</a></li>
-					<li th:if="${session.role!= null && session.role eq 'admin'}"><a th:href="@{/request-loan}"> <i class="icon-plus"></i>
+					<li th:if="${session.role!= null && session.role eq 'user'}"><a th:href="@{/request-loan}"> <i class="icon-plus"></i>
 						<span>Request Loan</span>
 					</a></li>
 					<li><a th:href="@{/view-requests}"> <i class="icon-plus"></i>
 						<span>View Requests</span>
 					</a></li>
-					<li><a th:href="@{/pdf}"> <i class="icon-plus"></i>
-						<span>Generate Report</span>
+					<li><a th:href="@{/pdf/approved}"> <i class="icon-plus"></i>
+						<span>Approved loan</span>
+					</a></li>
+					<li><a th:href="@{/pdf/declined}"> <i class="icon-plus"></i>
+						<span>Declined loan</span>
+					</a></li>
+					<li><a th:href="@{/pdf/pending}"> <i class="icon-plus"></i>
+						<span>pending loan</span>
 					</a></li>
 
 				</ul>

@@ -7,6 +7,8 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -45,6 +47,7 @@ public class LoanRequest {
     private String hasNotificationLetterSent;
     private LocalDateTime notificationLetterSentDate;
     private LocalDateTime requestDate;
+    private String declineReason;
     private String status;
     @PrePersist
     private void beforeSave(){
@@ -55,6 +58,7 @@ public class LoanRequest {
         }else{
             loanCommitteeType = "Full board Credit committee";
         }
+        requestDate =LocalDateTime.now();
     }
 
     public String getRequestId() {
@@ -251,6 +255,14 @@ public class LoanRequest {
         this.legalAprovalDate = legalAprovalDate;
     }
 
+    public String getDeclineReason() {
+        return declineReason;
+    }
+
+    public void setDeclineReason(String declineReason) {
+        this.declineReason = declineReason;
+    }
+
     @Override
     public String toString() {
         return "LoanRequest{" +
@@ -277,8 +289,9 @@ public class LoanRequest {
                 '}';
     }
 
+
     public String returnCurrentLevel(LoanRequest loanRequest){
-        System.out.println("DATA----"+loanRequest.getHasCreditComitteeAproved());
+//        System.out.println("DATA----"+loanRequest.getHasCreditComitteeAproved());
         if(loanRequest.getHasCreditComitteeAproved()==null || loanRequest.getHasCreditComitteeAproved().equalsIgnoreCase("0")){
             return "Credit Commitee";
         }
@@ -288,17 +301,63 @@ public class LoanRequest {
         if(loanRequest.getHasRiskApproved()==null || loanRequest.getHasRiskApproved().equalsIgnoreCase("0")){
             return "Risk";
         }
+        if(loanRequest.getHasLegalApproved()==null || loanRequest.getHasLegalApproved().equalsIgnoreCase("0")){
+            return "legal officer";
+        }
         return "";
     }
-    public String returnStatus(LoanRequest loanRequest){
-        System.out.println("DATA----"+loanRequest.getHasCreditComitteeAproved());
-        if(loanRequest.getHasCreditComitteeAproved()==null || loanRequest.getHasRiskApproved()==null || loanRequest.getHasLoanOfficerApproved()==null){
-            return "Pending";
-        }
-        if(loanRequest.getHasCreditComitteeAproved().equalsIgnoreCase("D") || loanRequest.getHasRiskApproved().equalsIgnoreCase("D") || loanRequest.getHasLoanOfficerApproved().equalsIgnoreCase("D")){
-            return "true";
-        }else{
-            return "Pending";
-        }
+//    public String returnStatus(LoanRequest loanRequest){
+//        System.out.println(" DATA----"+loanRequest.getHasCreditComitteeAproved()+" DATA loan officer----"+loanRequest.getHasLoanOfficerApproved()+" DATA risk----"+loanRequest.getHasRiskApproved()+" DATA legal----"+loanRequest.getHasLegalApproved());
+//        if(loanRequest.getHasCreditComitteeAproved()==null || loanRequest.getHasRiskApproved()==null || loanRequest.getHasLoanOfficerApproved()==null || loanRequest.getHasLegalApproved()==null){
+//            return "Pending";
+//        }
+//        if(loanRequest.getHasCreditComitteeAproved().equalsIgnoreCase("D") || loanRequest.getHasRiskApproved().equalsIgnoreCase("D") || loanRequest.getHasLoanOfficerApproved().equalsIgnoreCase("D") || loanRequest.getHasLegalApproved().equalsIgnoreCase("D")){
+//            return "Declined";
+//        }else if(loanRequest.getHasCreditComitteeAproved().equalsIgnoreCase("A") && loanRequest.getHasRiskApproved().equalsIgnoreCase("A") && loanRequest.getHasLoanOfficerApproved().equalsIgnoreCase("A") && loanRequest.getHasLegalApproved().equalsIgnoreCase("A")){
+//            return "Approved";
+//        }else{
+//            return "Pending";
+//        }
+//    }
+public String returnStatus(LoanRequest loanRequest){
+    System.out.println(" DATA----"+loanRequest.getHasCreditComitteeAproved()+" DATA loan officer----"+loanRequest.getHasLoanOfficerApproved()+" DATA risk----"+loanRequest.getHasRiskApproved()+" DATA legal----"+loanRequest.getHasLegalApproved());
+    if(loanRequest.getStatus()==null){
+        return "Pending";
     }
+    if(loanRequest.getStatus().equalsIgnoreCase("D")){
+        return "Declined";
+    }else if(loanRequest.getStatus().equalsIgnoreCase("A")){
+        return "Approved";
+    }else{
+        return "Pending";
+    }
+}
+    public List<LoanRequest> getApproved(List<LoanRequest> list){
+        List<LoanRequest> retu = new ArrayList<>();
+        list.forEach((request) -> {
+            if (request.getStatus()!=null && request.getStatus().equalsIgnoreCase("A")) {
+                retu.add(request);
+            }
+        });
+        return  retu;
+    }
+    public List<LoanRequest> getPending(List<LoanRequest> list){
+        List<LoanRequest> retu = new ArrayList<>();
+        list.forEach((request) -> {
+            if (request.returnStatus(request).equalsIgnoreCase("Pending")) {
+                retu.add(request);
+            }
+        });
+        return  retu;
+    }
+    public List<LoanRequest> getDeclined(List<LoanRequest> list){
+        List<LoanRequest> retu = new ArrayList<>();
+        list.forEach((request) -> {
+            if (request.getStatus()!=null && request.getStatus().equalsIgnoreCase("D")) {
+                retu.add(request);
+            }
+        });
+        return  retu;
+    }
+
 }

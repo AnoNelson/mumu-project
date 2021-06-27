@@ -14,8 +14,13 @@
     <link rel="stylesheet"
           href="vendor/datatables/media/css/datatables.bootstrap.html" />
 
-    <title>Digital Archive</title>
+    <title>FMOS</title>
 </head>
+<div th:if="${session.username == '' || session.username == null}">
+    <script>
+        window.location.replace("login");
+    </script>
+</div>
 <body class="page-loading">
 
 

@@ -5,6 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * Created by hp on 4/17/2021.
  */
@@ -13,4 +15,9 @@ public interface LoanRequestRepository extends JpaRepository<LoanRequest,String>
     @Query(value = "select (select count(*) from loan_request where status = 'A') as one,\n" +
             "(select count(*) from loan_request where status = 'D') as two",nativeQuery = true)
     public String getDashboardData();
+
+
+    @Query(value = "select * from loan_request ORDER BY request_date desc",nativeQuery = true)
+    public List<LoanRequest> getOrderedData();
+
 }
