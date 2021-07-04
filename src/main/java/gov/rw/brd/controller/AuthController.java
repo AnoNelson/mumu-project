@@ -66,6 +66,7 @@ public class AuthController {
             System.out.println(userPrincipal);
             session.setAttribute("username", userPrincipal.getUsername());
             session.setAttribute("role", userPrincipal.getRole());
+            session.setAttribute("image", userPrincipal.getPhoto());
             view.setViewName("dashboard");
             return "redirect:/dashboard";
         } catch (Exception e) {
@@ -85,6 +86,9 @@ public class AuthController {
 
         if(userRepository.findByUsername(user.getUsername()) != null){
             throw new GlobalException("username already used");
+        }
+        if(user.getRole()==null || user.getRole().trim().equalsIgnoreCase("")){
+            user.setRole("user");
         }
         System.out.println(user);
         if(userRepository.findByEmail(user.getEmail()) == null){
@@ -110,7 +114,13 @@ public class AuthController {
     }
 
     @RequestMapping(value = "/signup",method = RequestMethod.GET)
-    public String registerPage(@ModelAttribute("user") User user) {
+    public String registerPage(@ModelAttribute("user") User user,HttpSession session,Model model) {
+        boolean use = false;
+        if(session.getAttribute("username") !=null){
+          use = true;
+        }
+        System.out.println("user --> "+use);
+        model.addAttribute("use", use);
         return "signup";
     }
 
@@ -119,5 +129,9 @@ public class AuthController {
         session.removeAttribute("username");
         session.removeAttribute("role");
         return "redirect:/login";
+    }
+
+    public boolean checkAdminpPriviladge(HttpSession session){
+return true;
     }
 }

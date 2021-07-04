@@ -18,9 +18,14 @@ public class Loanee {
     private String loaneeAdress;
     private String loaneeEmail;
     private String phoneNumber;
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
     private LocalDateTime createdDate;
     @OneToOne(mappedBy = "loanee",cascade = CascadeType.ALL)
     private LoanRequest loanRequest;
+    @OneToOne
+    @JoinColumn(name = "userId", referencedColumnName = "user_id")
+    private User user;
 
     @PrePersist
     private void onCreate(){
@@ -83,6 +88,22 @@ public class Loanee {
         this.loanRequest = loanRequest;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Gender getGender() {
+        return gender;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
+    }
+
     @Override
     public String toString() {
         return "Loanee{" +
@@ -93,6 +114,7 @@ public class Loanee {
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", createdDate=" + createdDate +
                 ", loanRequest=" + loanRequest +
+                ", gender=" + gender +
                 '}';
     }
 }

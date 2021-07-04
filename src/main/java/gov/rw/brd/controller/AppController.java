@@ -6,17 +6,27 @@ import gov.rw.brd.domain.EStatus;
 import gov.rw.brd.domain.LoginRequest;
 import gov.rw.brd.domain.User;
 import gov.rw.brd.exceptions.GlobalException;
+import gov.rw.brd.repository.LoanRequestRepository;
+import gov.rw.brd.repository.LoaneeRepository;
 import gov.rw.brd.repository.UserRepository;
+import gov.rw.brd.service.AppService;
 import gov.rw.brd.service.EmailProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -27,20 +37,33 @@ import java.util.UUID;
 @Controller
 public class AppController {
     @Autowired
+    private AppService service;
+    @Autowired
     private UserRepository userRepository;
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
     @Autowired
     private EmailProvider emailProvider;
+    @Autowired
+    private LoaneeRepository loaneeRepo;
+    @Autowired
+    private LoanRequestRepository requestRepo;
+
     @RequestMapping("/dashboard")
-    public String getLogin(@ModelAttribute("auth") LoginRequest loginRequest) {
+    public String getLogin(@ModelAttribute("auth") LoginRequest loginRequest,Model model) {
+        System.out.println(loaneeRepo.getGroupByName().split(",").toString());
+        model.addAttribute("dash", loaneeRepo.getGroupByName().split(","));
+        model.addAttribute("dash1", requestRepo.getDashboardData().split(","));
+        System.out.println("dash1 " + requestRepo.getDashboardData().split(",")[1]);
+        model.addAttribute("data", requestRepo.getOrderedData());
         return "index";
     }
 
     @RequestMapping("/user-account")
-    public String getAllUsers (Model model) {
+    public String getAllUsers (Model model,HttpSession session) {
         List<User> users = userRepository.findAll();
         model.addAttribute("usersList",users);
+
         return "users";
     }
 
@@ -48,7 +71,7 @@ public class AppController {
     public ModelAndView edit(@PathVariable(value = "id") long id) {
         ModelAndView view = new ModelAndView();
         User user = userRepository.findById(id).orElse(new User());
-        view.addObject("user",user);
+        view.addObject("user", user);
         view.setViewName("user-edit");
         return view;
     }
@@ -121,5 +144,12 @@ public class AppController {
         }
         return null;
     }
+    @RequestMapping(value = "image/{imageName}")
+    @ResponseBody
+    public byte[] getImage(@PathVariable(value = "imageName") String imageName) throws IOException {
+        String UPLOAD_DIR = "C:\\xampp\\htdocs\\loanAppFiles\\";
+        File serverFile = new File(UPLOAD_DIR + imageName);
 
+        return Files.readAllBytes(serverFile.toPath());
+    }
 }

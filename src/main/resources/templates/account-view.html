@@ -16,6 +16,11 @@
 
 <title>Digital Archive</title>
 </head>
+<div th:if="${session.username == null || session.username == '' }">
+	<script>
+		window.location.replace("login");
+	</script>
+</div>
 <body class="page-loading">
 
 

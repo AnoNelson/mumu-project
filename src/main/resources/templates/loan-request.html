@@ -7,7 +7,7 @@
     <meta name="description" content=""/>
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1"/>
-    <title>Spring Boot Thymeleaf Application - Bootstrap DataTable</title>
+    <title>Request Loan</title>
     <link rel="stylesheet" th:href="@{/styles/app.min.css}"/>
 
 </head>
@@ -82,6 +82,16 @@
                         <label>mount of loan </label> <input type="text" th:field="*{loanRequest.loanAmount}"
                                                              class="form-control">
                     </div>
+                    <div class="form-group m-b col-md-6">
+                        <label>Martial Status </label>
+                        <div>
+                            <select th:field="*{gender}" class="form-control inputstl" aria-label="Default select example" style="width: 421px;margin-bottom: 20px;">
+                                <option th:value="'Single'" th:text="'Single'" selected></option>
+                                <option th:value="'Married'" th:text="'Married'"></option>
+                                <option th:value="'Divorced'" th:text="'Divorced'"></option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
                 <div class="row">
                     <div class="form-group m-b col-md-6">
@@ -93,14 +103,10 @@
                             <div class="col-lg-7">
 
 							<span class="btn btn-success fileinput-button"> <i
-                                    class="icon-plus"></i> <span>Add files...</span> <input
+                                    class="icon-plus"></i> <span>Add Application Letter.</span> <input
                                     type="file" th:field="*{loanRequest.requestLetter}" required accept="application/pdf"/>
 							</span>
 
-                                <button type="reset" class="btn btn-warning cancel">
-                                    <i class="icon-ban"></i> <span>Cancel upload</span>
-                                </button>
-
                                 <input type="checkbox" class="toggle hide"/> <span
                                     class="fileupload-process"></span>
                             </div>
@@ -124,13 +130,9 @@
                             <div class="col-lg-7">
 
 							<span class="btn btn-success fileinput-button"> <i
-                                    class="icon-plus"></i> <span>Add files...</span> <input
+                                    class="icon-plus"></i> <span>Add Business plan file</span> <input
                                     type="file" th:field="*{loanRequest.businessPlan}" required accept="application/pdf"/>
 							</span>
-
-                                <button type="reset" class="btn btn-warning cancel">
-                                    <i class="icon-ban"></i> <span>Cancel upload</span>
-                                </button>
 
                                 <input type="checkbox" class="toggle hide"/> <span
                                     class="fileupload-process"></span>
@@ -158,13 +160,9 @@
                             <div class="col-lg-7">
 
 							<span class="btn btn-success fileinput-button"> <i
-                                    class="icon-plus"></i> <span>Add files...</span> <input
+                                    class="icon-plus"></i> <span>Add Bank statement .</span> <input
                                     type="file" th:field="*{loanRequest.bankStatement}" required accept="application/pdf"/>
 							</span>
-
-                                <button type="reset" class="btn btn-warning cancel">
-                                    <i class="icon-ban"></i> <span>Cancel upload</span>
-                                </button>
 
                                 <input type="checkbox" class="toggle hide"/> <span
                                     class="fileupload-process"></span>
@@ -189,13 +187,9 @@
                             <div class="col-lg-7">
 
 							<span class="btn btn-success fileinput-button"> <i
-                                    class="icon-plus"></i> <span>Add files...</span> <input
+                                    class="icon-plus"></i> <span>Add Land Documents</span> <input
                                     type="file" th:field="*{loanRequest.landDocuments}" required accept="application/pdf"/>
 							</span>
-
-                                <button type="reset" class="btn btn-warning cancel">
-                                    <i class="icon-ban"></i> <span>Cancel upload</span>
-                                </button>
 
                                 <input type="checkbox" class="toggle hide"/> <span
                                     class="fileupload-process"></span>

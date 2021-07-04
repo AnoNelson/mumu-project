@@ -21,9 +21,102 @@
     <!-- <c:if test="#{session.department == 'IT Dept'}">
                <script> window.location.replace("dashboard");</script>
         </c:if> -->
+    <style>
+        @import url(https://fonts.googleapis.com/css?family=Open+Sans:400,600);
+
+        *, *:before, *:after {
+            margin: 0;
+            padding: 0;
+
+        }
+
+
+        .title{
+            font-size: 25px;
+            color: black;
+            text-transform: uppercase;
+            font-weight: 500;
+            text-align: center;
+            margin-bottom: 15px;
+            text-decoration: underline;
+        }
+        table{
+            width: 100%;
+            table-layout: fixed;
+            align-content: center;
+            text-align: center;
+        }
+
+        th{
+            padding: 5px 15px;
+            text-align: left;
+            font-weight: 800;
+            font-size: 12px;
+            color:black;
+            background-color: rgb(72, 72, 117);
+            text-transform: uppercase;
+        }
+        table td{
+            padding: 9px;
+            text-align: left;
+            vertical-align:middle;
+            font-weight: 300;
+            font-size: 12px;
+            color: black;
+
+            border-bottom: solid 1px rgba(31, 22, 22, 0.1);
+        }
+
+
+        /* demo styles */
+
+        section{
+            margin: 50px;
+        }
+
+        /* for custom scrollbar for webkit browser*/
+
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+        }
+        ::-webkit-scrollbar-thumb {
+            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+        }
+        table h4{
+            text-decoration: none;
+            font-weight:500;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 14px;
+            padding-left:20px;
+        }
+        table div{
+            padding-top: 30px;
+            padding-bottom: 70px;
+        }
+        .total td{
+            background-color: burlywood;
+            font-weight: 700;
+            font-size:18px;
+        }
+        .buttom{
+            float: right;
+            padding-right:48px;
+            padding-top:40px;
+
+        }
+
+    </style>
 </head>
+<div th:if="${session.username == '' || session.username == null}">
+    <script>
+        window.location.replace("login");
+    </script>
+</div>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-<script type="text/javascript">
+<script th:inline="javascript">
 
     // Load the Visualization API and the corechart package.
     google.charts.load('current', {'packages': ['corechart']});
@@ -40,17 +133,30 @@
         var data = new google.visualization.DataTable();
         data.addColumn('string', 'Topping');
         data.addColumn('number', 'Slices');
+        console.log(parseInt(/*[[${dash[0]}]]*/));
         data.addRows([
-            ['Mushrooms', 3],
-            ['Onions', 1],
-            ['Olives', 1],
-            ['Zucchini', 1],
-            ['Pepperoni', 2]
+            ['Divorced', parseInt(/*[[${dash[0]}]]*/)],
+            ['Single', parseInt(/*[[${dash[1]}]]*/)],
+            ['Married', parseInt(/*[[${dash[2]}]]*/)],
+        ]);
+        var data2 = new google.visualization.DataTable();
+        data2.addColumn('string', 'Topping');
+        data2.addColumn('number', 'Slices');
+
+        data2.addRows([
+            ['Approved', parseInt(/*[[${dash1[0]}]]*/)],
+            ['Declined', parseInt(/*[[${dash1[1]}]]*/)],
+            ['Pending', parseInt(/*[[${dash1[2]}]]*/)],
         ]);
 
         // Set chart options
         var options = {
-            'title': 'How Much Pizza I Ate Last Night',
+            'title': 'Status based on Martial status ',
+            'width': 400,
+            'height': 300
+        };
+        var options1 = {
+            'title': 'Status of Requests ',
             'width': 400,
             'height': 300
         };
@@ -59,7 +165,7 @@
         var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
         var chart2 = new google.visualization.PieChart(document.getElementById('chart_div2'));
         chart.draw(data, options);
-        chart2.draw(data, options);
+        chart2.draw(data2, options1);
     }
 </script>
 
@@ -126,6 +232,41 @@
                         </div>
                     </div>
                 </div>
+                <h1 class="title">Recent Loan Request</h1>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Loanee Name</th>
+                        <th>Loanee Address</th>
+                        <th>Loanee Email</th>
+                        <th>Loanee Phone</th>
+                        <th>Current Level</th>
+                        <th>Status</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="a:${data}">
+                        <td th:text="${a.loanee.loaneeFullName}"></td>
+                        <td th:text="${a.loanee.loaneeAdress}"></td>
+                        <td th:text="${a.loanee.loaneeEmail}"></td>
+                        <td th:text="${a.loanee.phoneNumber}"></td>
+                        <td>
+                            <th:block th:text="${a.returnCurrentLevel(a)}"/>
+                        </td>
+                        <td>
+                            <th:block th:text="${a.returnStatus(a)}"/>
+                        </td>
+                    </tr>
+                    <tr class="total">
+                        <td>
+                        <td>
+                        <td>
+                        <td>
+                        <td>
+                        <td>
+                        </td>
+                    </tbody>
+                </table>
             </div>
 
         </div>
@@ -139,7 +280,6 @@
 <!-- end header -->
 
 <!-- start footer -->
-<div th:replace="fragments :: footer"></div>
 <!-- start footer -->
 
 
