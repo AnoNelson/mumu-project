@@ -6,6 +6,7 @@ import gov.rw.brd.domain.RequestCheck;
 import gov.rw.brd.domain.User;
 import gov.rw.brd.repository.LoanRequestRepository;
 import gov.rw.brd.repository.LoaneeRepository;
+import gov.rw.brd.repository.UserRepository;
 import gov.rw.brd.service.AppService;
 import gov.rw.brd.service.EmailProvider;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -44,7 +46,8 @@ public class LoanRequestController {
 
     @Autowired
     private LoanRequestRepository loanRequestRepository;
-
+    @Autowired
+    private UserRepository userRepository;
     @Autowired
     private AppService service;
     @Autowired
@@ -190,5 +193,32 @@ public class LoanRequestController {
         }
         loanRequest.setDeclineReason(comments);
       return loanRequest;
+    }
+    @PostMapping("/saveProfile")
+    public String saveProfile(HttpSession session,@RequestParam("image") MultipartFile multipartFile) throws IOException {
+        if(session.getAttribute("role") !=null) {
+            String username = session.getAttribute("username").toString();
+            User user = service.getUserByUserName(username);
+            String fileNm = UUID.randomUUID().toString()+ StringUtils.cleanPath(multipartFile.getOriginalFilename());
+            Path path = Paths.get(UPLOAD_DIR + fileNm);
+            Files.copy(multipartFile.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+            user.setPhoto(fileNm);
+            userRepository.save(user);
+            return "redirect:/dashboard";
+        }else {
+            return "profile";
+        }
+    }
+
+    @RequestMapping("/view-profile")
+    public String viewProfile (Model model,HttpSession session) {
+        if(session.getAttribute("username") !=null) {
+            String username = session.getAttribute("username").toString();
+            User user = service.getUserByUserName(username);
+            model.addAttribute("user", user);
+            return "profile";
+        }else{
+            return "index";
+        }
     }
 }

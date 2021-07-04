@@ -67,7 +67,17 @@ public class RportController {
         WebContext context = new WebContext(request, response, servletContext);
         context.setVariable("requests", list);
         context.setVariable("report", id);
-        String orderHtml = templateEngine.process("test-report", context);
+        String orderHtml = null;
+        if(id.equalsIgnoreCase("approved")){
+            orderHtml = templateEngine.process("report-approved", context);
+        }
+        if(id.equalsIgnoreCase("declined")){
+            orderHtml = templateEngine.process("report-decline", context);
+        }
+        if(id.equalsIgnoreCase("pending")){
+            orderHtml = templateEngine.process("test-report", context);
+        }
+
 
         /* Setup Source and target I/O streams */
 

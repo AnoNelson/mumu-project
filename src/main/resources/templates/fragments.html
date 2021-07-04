@@ -1,161 +1,173 @@
 <!DOCTYPE html>
 <html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org">
 
 <head>
-<meta charset="utf-8" />
-<meta name="description" content="" />
-<meta name="viewport"
-	content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1" />
-<link rel="stylesheet" th:href="@{/styles/app.min.css}" />
-<link rel="stylesheet"
-	href="vendor/datatables/media/css/datatables.bootstrap.html" />
+    <meta charset="utf-8"/>
+    <meta name="description" content=""/>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1"/>
+    <link rel="stylesheet" th:href="@{/styles/app.min.css}"/>
+    <link rel="stylesheet"
+          href="vendor/datatables/media/css/datatables.bootstrap.html"/>
 
-<title>Digital Archive</title>
+    <title>Digital Archive</title>
 </head>
 <body>
-	<!-- start loader 
-		<div id="pageload" th:fragment="pageload">
-			<div class="pageload">
-		      <div class="pageload-inner">
-		        <div class="sk-rotating-plane"></div>
-		      </div>
-    		</div>
-		</div>
-		 end loader -->
+<!-- start loader
+    <div id="pageload" th:fragment="pageload">
+        <div class="pageload">
+          <div class="pageload-inner">
+            <div class="sk-rotating-plane"></div>
+          </div>
+        </div>
+    </div>
+     end loader -->
 
-	<!-- start header nav -->
-	<div id="side-bar" th:fragment="side-bar">
-		<div class="sidebar-panel offscreen-left">
-			<div class="brand">
-				<a href="javascript:;" class="toggle-apps hidden-xs"
-					data-toggle="quick-launch"> <i class="icon-grid"></i>
-				</a>
+<!-- start header nav -->
+<div id="side-bar" th:fragment="side-bar">
+    <div class="sidebar-panel offscreen-left">
+        <div class="brand">
+            <a href="javascript:;" class="toggle-apps hidden-xs"
+               data-toggle="quick-launch"> <i class="icon-grid"></i>
+            </a>
 
-				<div class="toggle-offscreen">
-					<a href="javascript:;" class="visible-xs hamburger-icon"
-						data-toggle="offscreen" data-move="ltr"> <span></span> <span></span>
-						<span></span>
-					</a>
-				</div>
+            <div class="toggle-offscreen">
+                <a href="javascript:;" class="visible-xs hamburger-icon"
+                   data-toggle="offscreen" data-move="ltr"> <span></span> <span></span>
+                    <span></span>
+                </a>
+            </div>
 
-				<a class="brand-logo"> <span>FMOS</span>
-				</a> <a href="#" class="small-menu-visible brand-logo">R</a>
-			</div>
-			<nav role="navigation">
-				<ul class="nav">
-					<li th:if="${session.role!= null && session.role eq 'admin'}" ><a th:href="@{/dashboard}"> <i class="icon-compass"></i>
-							<span>Dashboard</span>
-					</a></li>
-					<li th:if="${session.role!= null && session.role eq 'admin'}"><a th:href="@{/signup}"> <i class="icon-plus"></i>
-							<span>Add Account</span>
-					</a></li>
-					<li th:if="${session.role!= null && session.role eq 'admin'}" ><a th:href="@{/user-account}"> <i class="icon-plus"></i>
-						<span>Users</span>
-					</a></li>
-					<li th:if="${session.role!= null && session.role eq 'user'}"><a th:href="@{/request-loan}"> <i class="icon-plus"></i>
-						<span>Request Loan</span>
-					</a></li>
-					<li><a th:href="@{/view-requests}"> <i class="icon-plus"></i>
-						<span>View Requests</span>
-					</a></li>
-					<li><a th:href="@{/pdf/approved}"> <i class="icon-plus"></i>
-						<span>Approved loan</span>
-					</a></li>
-					<li><a th:href="@{/pdf/declined}"> <i class="icon-plus"></i>
-						<span>Declined loan</span>
-					</a></li>
-					<li><a th:href="@{/pdf/pending}"> <i class="icon-plus"></i>
-						<span>pending loan</span>
-					</a></li>
+            <a class="brand-logo"> <span>FMOS</span>
+            </a> <a href="#" class="small-menu-visible brand-logo">R</a>
+        </div>
+        <nav role="navigation">
+            <ul class="nav">
+                <li th:if="${session.role!= null && session.role eq 'admin'}"><a th:href="@{/dashboard}"> <i
+                        class="icon-compass"></i>
+                    <span>Dashboard</span>
+                </a></li>
+                <li th:if="${session.role!= null && session.role eq 'admin'}"><a th:href="@{/signup}"> <i
+                        class="icon-plus"></i>
+                    <span>Add Account</span>
+                </a></li>
+                <li th:if="${session.role!= null && session.role eq 'admin'}"><a th:href="@{/user-account}"> <i
+                        class="icon-plus"></i>
+                    <span>Users</span>
+                </a></li>
+                <li th:if="${session.role!= null && session.role eq 'user'}"><a th:href="@{/request-loan}"> <i
+                        class="icon-plus"></i>
+                    <span>Request Loan</span>
+                </a></li>
+                <li><a th:href="@{/view-requests}"> <i class="icon-plus"></i>
+                    <span>View Requests</span>
+                </a></li>
+                <li><a th:href="@{/pdf/approved}"> <i class="icon-plus"></i>
+                    <span>Approved loan</span>
+                </a></li>
+                <li><a th:href="@{/pdf/declined}"> <i class="icon-plus"></i>
+                    <span>Declined loan</span>
+                </a></li>
+                <li><a th:href="@{/pdf/pending}"> <i class="icon-plus"></i>
+                    <span>pending loan</span>
+                </a></li>
 
-				</ul>
-			</nav>
-		</div>
-	</div>
-	<!-- end header nav -->
+            </ul>
+        </nav>
+    </div>
+</div>
+<!-- end header nav -->
 
-	<!-- start header nav -->
-	<div id="header-nav" th:fragment="header-nav">
-		<div style="background: #D94B01" class="header navbar">
-			<div class="brand visible-xs">
-				<div class="toggle-offscreen">
-					<a href="javascript:;" class="hamburger-icon visible-xs"
-						data-toggle="offscreen" data-move="ltr"> <span></span> <span></span>
-						<span></span>
-					</a>
-				</div>
+<!-- start header nav -->
+<div id="header-nav" th:fragment="header-nav">
+    <div style="background: #D94B01" class="header navbar">
+        <div class="brand visible-xs">
+            <div class="toggle-offscreen">
+                <a href="javascript:;" class="hamburger-icon visible-xs"
+                   data-toggle="offscreen" data-move="ltr"> <span></span> <span></span>
+                    <span></span>
+                </a>
+            </div>
 
-				<a class="brand-logo"> <span>FOMS</span>
-				</a>
-			</div>
-			<ul style="background: #D94B01" class="nav navbar-nav hidden-xs">
-				<li style="background: #D94B01"><a style="background: #D94B01"
-					href="javascript:;" class="small-sidebar-toggle ripple"
-					data-toggle="layout-small-menu"> <i class="icon-toggle-sidebar"></i>
-				</a></li>
-			</ul>
-			<ul class="nav navbar-nav navbar-right hidden-xs">
-				<li style="background: #D94B01"><a style="background: #D94B01"
-					href="javascript:;" class="ripple" data-toggle="dropdown"> <i
-						class="icon-user header-avatar img-circle"></i> <span
-						th:text="${session.username}"></span> <span class="caret"></span>
-				</a>
-					<ul class="dropdown-menu">
+            <a class="brand-logo"> <span>FOMS</span>
+            </a>
+        </div>
+        <ul style="background: #D94B01" class="nav navbar-nav hidden-xs">
+            <li style="background: #D94B01"><a style="background: #D94B01"
+                                               href="javascript:;" class="small-sidebar-toggle ripple"
+                                               data-toggle="layout-small-menu"> <i class="icon-toggle-sidebar"></i>
+            </a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right hidden-xs">
+            <li style="background: #D94B01">
+                <a th:if="${session.image eq null || session.image eq ''}" style="background: #D94B01"
+                   href="javascript:;" class="ripple" data-toggle="dropdown"> <img style="border-radius: 80%;margin-top: 4px;"
+                        src="https://www.imagesource.com/wp-content/uploads/2019/06/Rio.jpg"
+                        width="40" height="40"> <span class="caret"></span>
+                </a>
+                <a th:if="${session.image != null && session.image ne ''}" style="background: #D94B01"
+                   href="javascript:;" class="ripple" data-toggle="dropdown"> <img style="border-radius: 80%;margin-top: 4px;"
+                                                                                   th:src="@{'/image/' +${session.image}}"
+                                                                                   width="40" height="40"> <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
 
-						<li role="separator" class="divider"></li>
-						<li><a href="javascript:;" th:text="${session.role}"></a>
-						</li>
-						<li><a th:href="@{/logout}">Logout</a></li>
-					</ul></li>
-			</ul>
-		</div>
-	</div>
-	<!-- end header nav -->
+                    <li role="separator" class="divider"></li>
+                    <li><a href="javascript:;" th:text="${session.role}"></a>
+                    </li>
+                    <li><a th:href="@{/view-profile}">Add Picture</a></li>
+                    <li><a th:href="@{/logout}">Logout</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
+<!-- end header nav -->
 
-	<!-- start footer -->
-	<div id="footer" th:fragment="footer">
-		<footer class="content-footer">
-			<nav class="footer-right">
-				<ul class="nav">
-					<li><a href="javascript:;">Feedback</a></li>
-					<li><a href="javascript:;" class="scroll-up"> <i
-							class="fa fa-angle-up"></i>
-					</a></li>
-				</ul>
-			</nav>
-			<nav class="footer-left hidden-xs">
-				<ul class="nav">
-					<li><a href="javascript:;"><span>About</span> mumu</a></li>
-					<li><a href="javascript:;">Privacy</a></li>
-					<li><a href="javascript:;">Terms</a></li>
-					<li><a href="javascript:;">Help</a></li>
-				</ul>
-			</nav>
-		</footer>
-	</div>
-	<!-- end footer -->
+<!-- start footer -->
+<div id="footer" th:fragment="footer">
+    <footer class="content-footer">
+        <nav class="footer-right">
+            <ul class="nav">
+                <li><a href="javascript:;">Feedback</a></li>
+                <li><a href="javascript:;" class="scroll-up"> <i
+                        class="fa fa-angle-up"></i>
+                </a></li>
+            </ul>
+        </nav>
+        <nav class="footer-left hidden-xs">
+            <ul class="nav">
+                <li><a href="javascript:;"><span>About</span> mumu</a></li>
+                <li><a href="javascript:;">Privacy</a></li>
+                <li><a href="javascript:;">Terms</a></li>
+                <li><a href="javascript:;">Help</a></li>
+            </ul>
+        </nav>
+    </footer>
+</div>
+<!-- end footer -->
 
-	<script th:src="@{/scripts/app.min.js}"></script>
-	<script th:src="@{/vendor/flot/jquery.flot.js}"></script>
-	<script th:src="@{/vendor/flot/jquery.flot.resize.js}"></script>
-	<script th:src="@{/vendor/flot/jquery.flot.categories.js}"></script>
-	<script th:src="@{/vendor/flot/jquery.flot.stack.js}"></script>
-	<script th:src="@{/vendor/flot/jquery.flot.time.js}"></script>
-	<script th:src="@{/vendor/flot/jquery.flot.pie.js}"></script>
-	<script th:src="@{/vendor/flot-spline/js/jquery.flot.spline.js}"></script>
-	<script th:src="@{/vendor/flot.orderbars/js/jquery.flot.orderBars.js}"></script>
-	<script th:src="@{/scripts/helpers/sameheight.js}"></script>
-	<script th:src="@{/scripts/ui/dashboard.js}"></script>
-	<!-- <script th:src="@{/bootstrap-4.0.0/bootstrap-4.0.0/dist/js/bootstrap.min.js}"></script> -->
+<script th:src="@{/scripts/app.min.js}"></script>
+<script th:src="@{/vendor/flot/jquery.flot.js}"></script>
+<script th:src="@{/vendor/flot/jquery.flot.resize.js}"></script>
+<script th:src="@{/vendor/flot/jquery.flot.categories.js}"></script>
+<script th:src="@{/vendor/flot/jquery.flot.stack.js}"></script>
+<script th:src="@{/vendor/flot/jquery.flot.time.js}"></script>
+<script th:src="@{/vendor/flot/jquery.flot.pie.js}"></script>
+<script th:src="@{/vendor/flot-spline/js/jquery.flot.spline.js}"></script>
+<script th:src="@{/vendor/flot.orderbars/js/jquery.flot.orderBars.js}"></script>
+<script th:src="@{/scripts/helpers/sameheight.js}"></script>
+<script th:src="@{/scripts/ui/dashboard.js}"></script>
+<!-- <script th:src="@{/bootstrap-4.0.0/bootstrap-4.0.0/dist/js/bootstrap.min.js}"></script> -->
 
-	<script
-		th:src="@{/vendor/datatables/media/js/datatables.bootstrap.html}"></script>
-	<script type="text/javascript">
-		$('.datatable').dataTable({
-			'ajax' : 'data/datatables-arrays.json'
-		});
-	</script>
+<script
+        th:src="@{/vendor/datatables/media/js/datatables.bootstrap.html}"></script>
+<script type="text/javascript">
+    $('.datatable').dataTable({
+        'ajax': 'data/datatables-arrays.json'
+    });
+</script>
 
 </body>
 </html>

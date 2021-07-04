@@ -12,8 +12,9 @@ import java.util.List;
  */
 @Repository
 public interface LoanRequestRepository extends JpaRepository<LoanRequest,String>{
-    @Query(value = "select (select count(*) from loan_request where status = 'A') as one,\n" +
-            "(select count(*) from loan_request where status = 'D') as two",nativeQuery = true)
+    @Query(value = "select (select count(*) from loan_request where status = 'A') as one," +
+            "(select count(*) from loan_request where status = 'D') as two," +
+            "  (select count(*) from loan_request where status is NULL ) as three",nativeQuery = true)
     public String getDashboardData();
 
 

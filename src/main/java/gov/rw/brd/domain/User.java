@@ -42,6 +42,7 @@ public class User implements UserDetails {
     private String confirmPassword;
     @Enumerated(EnumType.STRING)
     private EStatus status;
+    private String photo;
     private String role;
     private Date created_At;
     private Date updated_At;

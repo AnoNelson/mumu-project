@@ -9,16 +9,24 @@ import gov.rw.brd.exceptions.GlobalException;
 import gov.rw.brd.repository.LoanRequestRepository;
 import gov.rw.brd.repository.LoaneeRepository;
 import gov.rw.brd.repository.UserRepository;
+import gov.rw.brd.service.AppService;
 import gov.rw.brd.service.EmailProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -28,6 +36,8 @@ import java.util.UUID;
  */
 @Controller
 public class AppController {
+    @Autowired
+    private AppService service;
     @Autowired
     private UserRepository userRepository;
     @Autowired
@@ -134,5 +144,12 @@ public class AppController {
         }
         return null;
     }
+    @RequestMapping(value = "image/{imageName}")
+    @ResponseBody
+    public byte[] getImage(@PathVariable(value = "imageName") String imageName) throws IOException {
+        String UPLOAD_DIR = "C:\\xampp\\htdocs\\loanAppFiles\\";
+        File serverFile = new File(UPLOAD_DIR + imageName);
 
+        return Files.readAllBytes(serverFile.toPath());
+    }
 }

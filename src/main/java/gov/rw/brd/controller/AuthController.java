@@ -66,6 +66,7 @@ public class AuthController {
             System.out.println(userPrincipal);
             session.setAttribute("username", userPrincipal.getUsername());
             session.setAttribute("role", userPrincipal.getRole());
+            session.setAttribute("image", userPrincipal.getPhoto());
             view.setViewName("dashboard");
             return "redirect:/dashboard";
         } catch (Exception e) {

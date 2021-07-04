@@ -110,40 +110,40 @@
     <h4>support@rmc.gov</h4>
 </div>
 <h1 th:text="${report}+' Loan to Client'"></h1>
-            <table>
-                <thead>
-                <tr>
-                    <th>Loanee Name</th>
-                    <th>Loanee Address</th>
-                    <th>Loanee Email</th>
-                    <th>Loanee Phone</th>
-                    <th>Current Level</th>
-                    <th>Status</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="a:${requests}">
-                    <td th:text="${a.loanee.loaneeFullName}"></td>
-                    <td th:text="${a.loanee.loaneeAdress}"></td>
-                    <td th:text="${a.loanee.loaneeEmail}"></td>
-                    <td th:text="${a.loanee.phoneNumber}"></td>
-                    <td>
-                        <th:block th:text="${a.returnCurrentLevel(a)}"/>
-                    </td>
-                    <td>
-                        <th:block th:text="${a.returnStatus(a)}"/>
-                    </td>
-                </tr>
-                <tr class="total">
-                    <td>
-                    <td>
-                    <td>
-                    <td>
-                    <td>
-                    <td>
-                </td>
-                </tbody>
-            </table>
+<table>
+    <thead>
+    <tr>
+        <th>Loanee Name</th>
+        <th>Loanee Address</th>
+        <th>Loanee Email</th>
+        <th>Loanee Phone</th>
+        <th>Reason</th>
+        <th>Status</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="a:${requests}">
+        <td th:text="${a.loanee.loaneeFullName}"></td>
+        <td th:text="${a.loanee.loaneeAdress}"></td>
+        <td th:text="${a.loanee.loaneeEmail}"></td>
+        <td th:text="${a.loanee.phoneNumber}"></td>
+        <td>
+            <th:text th:text="${a.declineReason}"/>
+        </td>
+        <td>
+            <th:block th:text="${a.returnStatus(a)}"/>
+        </td>
+    </tr>
+    <tr class="total">
+        <td>
+        <td>
+        <td>
+        <td>
+        <td>
+        <td>
+        </td>
+    </tbody>
+</table>
 <div class="buttom">
     <h4 th:text="${#dates.format(#dates.createNow(), 'dd MMM yyyy HH:mm')}" ></h4>
 </div>

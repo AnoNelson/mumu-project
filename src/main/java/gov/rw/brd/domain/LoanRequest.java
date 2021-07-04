@@ -292,11 +292,11 @@ public class LoanRequest {
 
     public String returnCurrentLevel(LoanRequest loanRequest){
 //        System.out.println("DATA----"+loanRequest.getHasCreditComitteeAproved());
+        if(loanRequest.getHasLoanOfficerApproved()== null || loanRequest.getHasLoanOfficerApproved().equalsIgnoreCase("0")) {
+            return "officer of loan";
+        }
         if(loanRequest.getHasCreditComitteeAproved()==null || loanRequest.getHasCreditComitteeAproved().equalsIgnoreCase("0")){
             return "Credit Commitee";
-        }
-        if(loanRequest.getHasLoanOfficerApproved()==null || loanRequest.getHasLoanOfficerApproved().equalsIgnoreCase("0")) {
-            return "officer of loan";
         }
         if(loanRequest.getHasRiskApproved()==null || loanRequest.getHasRiskApproved().equalsIgnoreCase("0")){
             return "Risk";
