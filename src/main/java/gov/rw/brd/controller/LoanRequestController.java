@@ -67,6 +67,9 @@ public class LoanRequestController {
     @RequestMapping(value = "/save-loanee", method = RequestMethod.POST)
     public String addAccount(@Valid Loanee loanee, HttpServletRequest request, RedirectAttributes redirAttrs) {
         try {
+            List<LoanRequest>  requests= new ArrayList<>();
+            requests.add(loanee.getLoanRequest());
+            loanee.setLoanRequests(requests);
             HttpSession session = request.getSession(false);
             String username = (String) session.getAttribute("username");
             if(username.trim().equalsIgnoreCase("") || username ==null){
@@ -78,26 +81,32 @@ public class LoanRequestController {
                 redirAttrs.addFlashAttribute("error", "Error: " + " user data not found");
                 return "redirect:/request-loan";
             }
-            loanee.setUser(user);
+            loanee.setUser_id(user.getUser_id().intValue());
             ModelAndView view = new ModelAndView();
             view.addObject("loanee", loanee);
-            String fileNm = UUID.randomUUID().toString()+ StringUtils.cleanPath(loanee.getLoanRequest().getRequestLetter().getOriginalFilename());
+            String fileNm = UUID.randomUUID().toString()+ StringUtils.cleanPath(loanee.getLoanRequests().get(0).getRequestLetter().getOriginalFilename());
             Path path = Paths.get(UPLOAD_DIR + fileNm);
-            Files.copy(loanee.getLoanRequest().getRequestLetter().getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
-            loanee.getLoanRequest().setRequestLetterName( fileNm);
+            Files.copy(loanee.getLoanRequests().get(0).getRequestLetter().getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+            loanee.getLoanRequests().get(0).setRequestLetterName( fileNm);
             System.out.println(loanee);
-            String fileNm2 = UUID.randomUUID().toString()+ StringUtils.cleanPath(loanee.getLoanRequest().getBusinessPlan().getOriginalFilename());
+            String fileNm2 = UUID.randomUUID().toString()+ StringUtils.cleanPath(loanee.getLoanRequests().get(0).getBusinessPlan().getOriginalFilename());
             Path path2 = Paths.get(UPLOAD_DIR + fileNm2);
-            Files.copy(loanee.getLoanRequest().getBusinessPlan().getInputStream(), path2, StandardCopyOption.REPLACE_EXISTING);
-            loanee.getLoanRequest().setBusinessPlanName(fileNm2);
-            String fileNm3 = UUID.randomUUID().toString()+ StringUtils.cleanPath(loanee.getLoanRequest().getBankStatement().getOriginalFilename());
+            Files.copy(loanee.getLoanRequests().get(0).getBusinessPlan().getInputStream(), path2, StandardCopyOption.REPLACE_EXISTING);
+            loanee.getLoanRequests().get(0).setBusinessPlanName(fileNm2);
+            String fileNm3 = UUID.randomUUID().toString()+ StringUtils.cleanPath(loanee.getLoanRequests().get(0).getBankStatement().getOriginalFilename());
             Path path3 = Paths.get(UPLOAD_DIR + fileNm3);
-            Files.copy(loanee.getLoanRequest().getBankStatement().getInputStream(), path3, StandardCopyOption.REPLACE_EXISTING);
-            loanee.getLoanRequest().setBankStatementName(fileNm3);
-            String fileNm4 = UUID.randomUUID().toString()+ StringUtils.cleanPath(loanee.getLoanRequest().getLandDocuments().getOriginalFilename());
+            Files.copy(loanee.getLoanRequests().get(0).getBankStatement().getInputStream(), path3, StandardCopyOption.REPLACE_EXISTING);
+            loanee.getLoanRequests().get(0).setBankStatementName(fileNm3);
+            String fileNm4 = UUID.randomUUID().toString()+ StringUtils.cleanPath(loanee.getLoanRequests().get(0).getLandDocuments().getOriginalFilename());
             Path path4 = Paths.get(UPLOAD_DIR + fileNm4);
-            Files.copy(loanee.getLoanRequest().getLandDocuments().getInputStream(), path4, StandardCopyOption.REPLACE_EXISTING);
-            loanee.getLoanRequest().setLandDocumentsName(fileNm4);
+            Files.copy(loanee.getLoanRequests().get(0).getLandDocuments().getInputStream(), path4, StandardCopyOption.REPLACE_EXISTING);
+            loanee.getLoanRequests().get(0).setLandDocumentsName(fileNm4);
+
+            String fileNm5 = UUID.randomUUID().toString()+ StringUtils.cleanPath(loanee.getLoanRequests().get(0).getMartialStatusDoc().getOriginalFilename());
+            Path path5 = Paths.get(UPLOAD_DIR + fileNm5);
+            Files.copy(loanee.getLoanRequests().get(0).getMartialStatusDoc().getInputStream(), path5, StandardCopyOption.REPLACE_EXISTING);
+            loanee.getLoanRequests().get(0).setMartialStatusDocName(fileNm5);
+
             redirAttrs.addFlashAttribute("success", "file successfully added");
             service.saveLoanRequest(loanee);
 
@@ -115,6 +124,7 @@ public class LoanRequestController {
             String role = session.getAttribute("role").toString();
             String username = (String) session.getAttribute("username");
             List<LoanRequest> list = service.getAllRequests(role,username);
+            System.out.println("data before list "+list);
             model.addAttribute("requests",list);
             return "account-view";
         }else{
@@ -158,12 +168,12 @@ public class LoanRequestController {
         System.out.println("role ----> "+session.getAttributeNames().toString());
         System.out.println("action ---> "+comment);
         LoanRequest loanRequest = service.getRequests(id);
-        loanRequest = service.save(handleRequestAction(role,loanRequest,action,comment.getComments()));
+        loanRequest = service.save(handleRequestAction(role,loanRequest,action,comment));
         System.out.println(loanRequest);
         return "redirect:/view-requests";
     }
 
-    public LoanRequest handleRequestAction(String role,LoanRequest loanRequest,String action,String comments){
+    public LoanRequest handleRequestAction(String role,LoanRequest loanRequest,String action,RequestCheck comments){
         String sone = null;
         if(action.equalsIgnoreCase("approve")){
             sone = "A";
@@ -191,7 +201,8 @@ public class LoanRequestController {
             loanRequest.setStatus("A");
             emailProvider.sendApprovalEmaail(loanRequest.getLoanee(),"Approved");
         }
-        loanRequest.setDeclineReason(comments);
+        loanRequest.setDeclineReason(comments.getComments());
+        loanRequest.setApprovedAmount(comments.getApprovedAmount());
       return loanRequest;
     }
     @PostMapping("/saveProfile")

@@ -4,6 +4,7 @@ package gov.rw.brd.service;
 import gov.rw.brd.domain.Loanee;
 import gov.rw.brd.domain.User;
 import gov.rw.brd.exceptions.GlobalException;
+import gov.rw.brd.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,8 @@ import javax.mail.internet.MimeMessage;
 public class EmailProvider {
     @Autowired
     private JavaMailSender mailSender;
+    @Autowired
+    private UserRepository repo;
 
     public String sendEmailAlert(String receiver, User user) {
         MimeMessage message = mailSender.createMimeMessage();
@@ -121,7 +124,7 @@ public class EmailProvider {
         }
         try {
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
-            helper.setTo(loanee.getUser().getEmail());
+            helper.setTo(repo.findById((long) loanee.getUser_id()).get().getEmail());
             helper.setText("<!DOCTYPE html>\n" +
                     "<html lang=\"en\">\n" +
                     "\n" +

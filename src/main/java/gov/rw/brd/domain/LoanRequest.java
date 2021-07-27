@@ -18,8 +18,8 @@ import java.util.UUID;
 public class LoanRequest {
     @Id
     private String requestId = UUID.randomUUID().toString();
-    @OneToOne
-    @JoinColumn(name = "loanee_id", referencedColumnName = "loaneeId")
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "loanee_id", referencedColumnName = "loaneeId",unique = false)
     private Loanee loanee;
     @Transient
     private MultipartFile requestLetter;
@@ -33,7 +33,11 @@ public class LoanRequest {
     @Transient
     private MultipartFile landDocuments;
     private String landDocumentsName;
+    @Transient
+    private MultipartFile martialStatusDoc;
+    private String martialStatusDocName;
     private BigDecimal loanAmount;
+    private BigDecimal approvedAmount;
     private String hasCreditComitteeAproved;
     @JsonFormat(pattern = "DD-MM-YYYY")
     private LocalDateTime creditCommitteeAprovalDate;
@@ -263,10 +267,35 @@ public class LoanRequest {
         this.declineReason = declineReason;
     }
 
+    public MultipartFile getMartialStatusDoc() {
+        return martialStatusDoc;
+    }
+
+    public void setMartialStatusDoc(MultipartFile martialStatusDoc) {
+        this.martialStatusDoc = martialStatusDoc;
+    }
+
+    public String getMartialStatusDocName() {
+        return martialStatusDocName;
+    }
+
+    public void setMartialStatusDocName(String martialStatusDocName) {
+        this.martialStatusDocName = martialStatusDocName;
+    }
+
+    public BigDecimal getApprovedAmount() {
+        return approvedAmount;
+    }
+
+    public void setApprovedAmount(BigDecimal approvedAmount) {
+        this.approvedAmount = approvedAmount;
+    }
+
     @Override
     public String toString() {
         return "LoanRequest{" +
                 "requestId='" + requestId + '\'' +
+                ", loanee=" + loanee +
                 ", requestLetter=" + requestLetter +
                 ", requestLetterName='" + requestLetterName + '\'' +
                 ", businessPlan=" + businessPlan +
@@ -275,20 +304,26 @@ public class LoanRequest {
                 ", bankStatementName='" + bankStatementName + '\'' +
                 ", landDocuments=" + landDocuments +
                 ", landDocumentsName='" + landDocumentsName + '\'' +
+                ", martialStatusDoc=" + martialStatusDoc +
+                ", martialStatusDocName='" + martialStatusDocName + '\'' +
                 ", loanAmount=" + loanAmount +
-                ", hasCreditComitteeAproved=" + hasCreditComitteeAproved +
+                ", approvedAmount=" + approvedAmount +
+                ", hasCreditComitteeAproved='" + hasCreditComitteeAproved + '\'' +
                 ", creditCommitteeAprovalDate=" + creditCommitteeAprovalDate +
                 ", loanCommitteeType='" + loanCommitteeType + '\'' +
-                ", hasLoanOfficerApproved=" + hasLoanOfficerApproved +
+                ", hasLoanOfficerApproved='" + hasLoanOfficerApproved + '\'' +
                 ", loanOfficerAprovalDate=" + loanOfficerAprovalDate +
-                ", hasRiskApproved=" + hasRiskApproved +
+                ", hasRiskApproved='" + hasRiskApproved + '\'' +
                 ", riskAprovalDate=" + riskAprovalDate +
-                ", hasNotificationLetterSent=" + hasNotificationLetterSent +
+                ", hasLegalApproved='" + hasLegalApproved + '\'' +
+                ", legalAprovalDate=" + legalAprovalDate +
+                ", hasNotificationLetterSent='" + hasNotificationLetterSent + '\'' +
                 ", notificationLetterSentDate=" + notificationLetterSentDate +
                 ", requestDate=" + requestDate +
+                ", declineReason='" + declineReason + '\'' +
+                ", status='" + status + '\'' +
                 '}';
     }
-
 
     public String returnCurrentLevel(LoanRequest loanRequest){
 //        System.out.println("DATA----"+loanRequest.getHasCreditComitteeAproved());

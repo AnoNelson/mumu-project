@@ -4,6 +4,8 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -21,12 +23,11 @@ public class Loanee {
     @Enumerated(EnumType.STRING)
     private Gender gender;
     private LocalDateTime createdDate;
-    @OneToOne(mappedBy = "loanee",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "loanee",cascade = CascadeType.ALL)
+    private List<LoanRequest> loanRequests = new ArrayList<>();
+    private int user_id;
+    @Transient
     private LoanRequest loanRequest;
-    @OneToOne
-    @JoinColumn(name = "userId", referencedColumnName = "user_id")
-    private User user;
-
     @PrePersist
     private void onCreate(){
         createdDate = LocalDateTime.now();
@@ -80,20 +81,12 @@ public class Loanee {
         this.createdDate = createdDate;
     }
 
-    public LoanRequest getLoanRequest() {
-        return loanRequest;
+    public int getUser_id() {
+        return user_id;
     }
 
-    public void setLoanRequest(LoanRequest loanRequest) {
-        this.loanRequest = loanRequest;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
     }
 
     public Gender getGender() {
@@ -104,6 +97,22 @@ public class Loanee {
         this.gender = gender;
     }
 
+    public List<LoanRequest> getLoanRequests() {
+        return loanRequests;
+    }
+
+    public void setLoanRequests(List<LoanRequest> loanRequests) {
+        this.loanRequests = loanRequests;
+    }
+
+    public LoanRequest getLoanRequest() {
+        return loanRequest;
+    }
+
+    public void setLoanRequest(LoanRequest loanRequest) {
+        this.loanRequest = loanRequest;
+    }
+
     @Override
     public String toString() {
         return "Loanee{" +
@@ -112,9 +121,10 @@ public class Loanee {
                 ", loaneeAdress='" + loaneeAdress + '\'' +
                 ", loaneeEmail='" + loaneeEmail + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
-                ", createdDate=" + createdDate +
-                ", loanRequest=" + loanRequest +
                 ", gender=" + gender +
+                ", createdDate=" + createdDate +
+                ", user_id=" + user_id +
+                ", loanRequest=" + loanRequest +
                 '}';
     }
 }

@@ -29,12 +29,12 @@ public class AppService {
 
     public Loanee saveLoanRequest(Loanee loanee){
         try {
-            if(loanee.getUser()==null){
+            if(loanee.getUser_id()==0){
                 throw new GlobalException("error "+"user not found");
             }
-            LoanRequest request = loanee.getLoanRequest();
+            LoanRequest request = loanee.getLoanRequests().get(0);
             System.out.println(request);
-            loanee.setLoanRequest(null);
+            loanee.setLoanRequests(null);
             System.out.println("loonee " + loanee);
             Loanee saved = loaneeRepository.save(loanee);
             request.setLoanee(saved);
@@ -50,7 +50,8 @@ public class AppService {
         List<LoanRequest> list2 = new ArrayList<>();
         if(role.trim().equalsIgnoreCase("user")){
             for(LoanRequest l : list){
-                if(l.getLoanee().getUser()!=null && l.getLoanee().getUser().getUsername().equalsIgnoreCase(username)){
+                User user = customerUserDetailsService.findById((long)l.getLoanee().getUser_id()).get();
+                if(l.getLoanee().getUser_id()!=0 && user.getUsername().equalsIgnoreCase(username)){
                     list2.add(l);
                 }
             }

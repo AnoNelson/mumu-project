@@ -113,25 +113,45 @@
 						Land Document
 						<p style="width: 100%;"></p>
 					</div>
+					<div style="margin-right: 2rem"
+						 class="card bg-white col-md-3">
+						<a th:href="@{'/downloadFile/' + ${request.martialStatusDocName}}"> <img
+								th:src="@{/image/pdf.jpg}" alt="pdf" style="width: 100%;">
+						</a>
+						<!-- <p style="width:100%;" th:text="${files.get(i.index)}"> </p> -->
+						<p style="width: 100%"></p>
+						Martial Status Document
+						<p style="width: 100%;"></p>
+					</div>
+					<div style="margin-right: 2rem;width: 100%"
+						 class="card bg-white col-md-3" >
+					</div>
 					<div class="page-title" style="align-content: center; text-align: center; font-weight: 500">
 						<div class="sub-title" th:if="${session.role!= null && session.role ne 'user' && session.role ne 'admin'}">
 							<form action="#"  th:action="@{'/action/'+ ${request.requestId}}" th:object="${check}" method="post" enctype="multipart/form-data">
 
 								<div class="row">
-									<div class="form-group m-b col-md-4">
+									<div class="form-group m-b col-md-4" style="width: 117px;">
 										<button type="submit" style="float: left" class="btn btn-warning cancel" name="action" value="reject"> Reject
 										</button>
 									</div>
-									<div class="form-group m-b col-md-4">
+									<div class="form-group m-b col-md-4" >
 										<label>Comments</label> <textarea type="text"
 																			   class="form-control"
 																		       name="comment"
 																		       th:field="*{comments}"
 																			   placeholder="Enter Comments if you are about to decline"  required></textarea>
 									</div>
+									<div class="form-group m-b col-md-4"  th:if="${session.role!= null && session.role eq 'Legal'}">
+										<label>Comments</label> <input type="number"
+																		  class="form-control"
+																		  name="comment"
+																		  th:field="*{approvedAmount}"
+																	   required></input>
+									</div>
 
 
-									<div class="form-group m-b col-md-4">
+									<div class="form-group m-b col-md-4" style="width: 136px;">
 										<button type="submit" style="float: right" class="btn btn-success success" name="action" value="approve">
 											Approve
 										</button>

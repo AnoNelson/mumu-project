@@ -46,8 +46,6 @@ public class User implements UserDetails {
     private String role;
     private Date created_At;
     private Date updated_At;
-    @OneToOne(mappedBy = "user",cascade = CascadeType.ALL)
-    private Loanee loanee;
 
     @PrePersist
     protected void onCreate() {
