@@ -38,6 +38,7 @@ public class LoanRequest {
     private String martialStatusDocName;
     private BigDecimal loanAmount;
     private BigDecimal approvedAmount;
+    private String sector;
     private String hasCreditComitteeAproved;
     @JsonFormat(pattern = "DD-MM-YYYY")
     private LocalDateTime creditCommitteeAprovalDate;
@@ -291,6 +292,14 @@ public class LoanRequest {
         this.approvedAmount = approvedAmount;
     }
 
+    public String getSector() {
+        return sector;
+    }
+
+    public void setSector(String sector) {
+        this.sector = sector;
+    }
+
     @Override
     public String toString() {
         return "LoanRequest{" +
@@ -320,6 +329,7 @@ public class LoanRequest {
                 ", hasNotificationLetterSent='" + hasNotificationLetterSent + '\'' +
                 ", notificationLetterSentDate=" + notificationLetterSentDate +
                 ", requestDate=" + requestDate +
+                ", sector=" + sector +
                 ", declineReason='" + declineReason + '\'' +
                 ", status='" + status + '\'' +
                 '}';

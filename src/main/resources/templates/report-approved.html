@@ -107,7 +107,7 @@
 <div>
     <h4>Loan Request System</h4>
     <h4>Kigali, Rwanda</h4>
-    <h4>support@rmc.gov</h4>
+    <h4>support@brd.gov.rw</h4>
 </div>
 <h1 th:text="${report}+' Loan to Client'"></h1>
 <table>
@@ -117,6 +117,7 @@
         <th>Loanee Address</th>
         <th>Loanee Email</th>
         <th>Loanee Phone</th>
+        <th>Sector</th>
         <th>Amount Requested</th>
         <th>Amount Approved</th>
         <th>Status</th>
@@ -128,6 +129,7 @@
         <td th:text="${a.loanee.loaneeAdress}"></td>
         <td th:text="${a.loanee.loaneeEmail}"></td>
         <td th:text="${a.loanee.phoneNumber}"></td>
+        <td th:text="${a.sector}"></td>
         <td th:text="${a.loanAmount}"></td>
         <td th:text="${a.approvedAmount}"></td>
         <td>

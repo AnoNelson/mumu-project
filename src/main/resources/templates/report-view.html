@@ -22,7 +22,7 @@
 <!-- start loader -->
 <div class="pageload">
     <div class="pageload-inner">
-        <div style="background: #D94B01" class="sk-rotating-plane"></div>
+        <div style="background: #1B5732" class="sk-rotating-plane"></div>
     </div>
 </div>
 <!-- end loader -->
@@ -58,6 +58,7 @@
                             <th>Loanee Address</th>
                             <th>Loanee Email</th>
                             <th>Loanee Phone</th>
+                            <th>Sector</th>
                             <th>Current Level</th>
                             <th>Status</th>
                             <th>Action</th>
@@ -69,6 +70,7 @@
                             <td th:text="${a.loanee.loaneeAdress}"></td>
                             <td th:text="${a.loanee.loaneeEmail}"></td>
                             <td th:text="${a.loanee.phoneNumber}"></td>
+                            <td th:text="${a.sector}"></td>
                             <td>
                                 <th:block th:text="${a.returnCurrentLevel(a)}"/>
                             </td>

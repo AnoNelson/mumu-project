@@ -30,7 +30,6 @@ public class EmailProvider {
         try {
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
             helper.setTo(receiver);
-//            helper.setFrom("icrw@gtbank.com");
             helper.setText("\n" +
                     "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\">\n" +
                     "<html style=\"-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background-color: #464646; margin: 0; padding: 0;\">\n" +

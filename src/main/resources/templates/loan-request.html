@@ -21,7 +21,7 @@
 <!-- start loader -->
 <div class="pageload">
     <div class="pageload-inner">
-        <div style="background: #D94B01" class="sk-rotating-plane"></div>
+        <div style="background: #1B5732" class="sk-rotating-plane"></div>
     </div>
 </div>
 <!-- end loader -->
@@ -78,17 +78,27 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="form-group m-b col-md-6">
+                    <div class="form-group m-b col-md-4">
                         <label>amount of loan </label> <input type="text" th:field="*{loanRequest.loanAmount}"
                                                              class="form-control">
                     </div>
-                    <div class="form-group m-b col-md-6">
+                    <div class="form-group m-b col-md-4">
                         <label>Martial Status </label>
                         <div>
-                            <select th:field="*{gender}" class="form-control inputstl" aria-label="Default select example" style="width: 421px;margin-bottom: 20px;">
+                            <select th:field="*{gender}" class="form-control inputstl" aria-label="Default select example" style="width: 326px;margin-bottom: 20px;">
                                 <option th:value="'Single'" th:text="'Single'" selected></option>
                                 <option th:value="'Married'" th:text="'Married'"></option>
                                 <option th:value="'Divorced'" th:text="'Divorced'"></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group m-b col-md-4">
+                        <label>Sector </label>
+                        <div>
+                            <select th:field="*{loanRequest.sector}" class="form-control inputstl" aria-label="Default select example" style="width: 366px;margin-bottom: 20px;">
+                                <option th:value="'Energy'" th:text="'Energy'" selected></option>
+                                <option th:value="'export'" th:text="'export(coffee€tea)'"></option>
+                                <option th:value="'building'" th:text="'Business buildings'"></option>
                             </select>
                         </div>
                     </div>

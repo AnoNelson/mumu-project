@@ -81,7 +81,7 @@
 
 <!-- start header nav -->
 <div id="header-nav" th:fragment="header-nav">
-    <div style="background: #D94B01" class="header navbar">
+    <div style="background: #1B5732" class="header navbar">
         <div class="brand visible-xs">
             <div class="toggle-offscreen">
                 <a href="javascript:;" class="hamburger-icon visible-xs"
@@ -93,20 +93,20 @@
             <a class="brand-logo"> <span>FOMS</span>
             </a>
         </div>
-        <ul style="background: #D94B01" class="nav navbar-nav hidden-xs">
-            <li style="background: #D94B01"><a style="background: #D94B01"
+        <ul style="background: #1B5732" class="nav navbar-nav hidden-xs">
+            <li style="background: #1B5732"><a style="background: #1B5732"
                                                href="javascript:;" class="small-sidebar-toggle ripple"
                                                data-toggle="layout-small-menu"> <i class="icon-toggle-sidebar"></i>
             </a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right hidden-xs">
-            <li style="background: #D94B01">
-                <a th:if="${session.image eq null || session.image eq ''}" style="background: #D94B01"
+            <li style="background: #1B5732">
+                <a th:if="${session.image eq null || session.image eq ''}" style="background: #1B5732"
                    href="javascript:;" class="ripple" data-toggle="dropdown"> <img style="border-radius: 80%;margin-top: 4px;"
                         src="https://www.imagesource.com/wp-content/uploads/2019/06/Rio.jpg"
                         width="40" height="40"> <span class="caret"></span>
                 </a>
-                <a th:if="${session.image != null && session.image ne ''}" style="background: #D94B01"
+                <a th:if="${session.image != null && session.image ne ''}" style="background: #1B5732"
                    href="javascript:;" class="ripple" data-toggle="dropdown"> <img style="border-radius: 80%;margin-top: 4px;"
                                                                                    th:src="@{'/image/' +${session.image}}"
                                                                                    width="40" height="40"> <span class="caret"></span>
@@ -138,7 +138,7 @@
         </nav>
         <nav class="footer-left hidden-xs">
             <ul class="nav">
-                <li><a href="javascript:;"><span>About</span> mumu</a></li>
+                <li><a href="javascript:;"><span>About</span> BRD</a></li>
                 <li><a href="javascript:;">Privacy</a></li>
                 <li><a href="javascript:;">Terms</a></li>
                 <li><a href="javascript:;">Help</a></li>
