@@ -63,13 +63,13 @@
                 <li><a th:href="@{/view-requests}"> <i class="icon-plus"></i>
                     <span>View Requests</span>
                 </a></li>
-                <li><a th:href="@{/pdf/approved}"> <i class="icon-plus"></i>
+                <li th:if="${session.role!= null && session.role eq 'admin'}"><a th:href="@{/pdf/approved}"> <i class="icon-plus"></i>
                     <span>Approved loan</span>
                 </a></li>
-                <li><a th:href="@{/pdf/declined}"> <i class="icon-plus"></i>
+                <li th:if="${session.role!= null && session.role eq 'admin'}"><a th:href="@{/pdf/declined}"> <i class="icon-plus"></i>
                     <span>Declined loan</span>
                 </a></li>
-                <li><a th:href="@{/pdf/pending}"> <i class="icon-plus"></i>
+                <li th:if="${session.role!= null && session.role eq 'admin'}"><a th:href="@{/pdf/pending}"> <i class="icon-plus"></i>
                     <span>pending loan</span>
                 </a></li>
 

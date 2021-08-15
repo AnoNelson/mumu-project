@@ -79,6 +79,11 @@ public class AuthController {
     public String getLogin(@ModelAttribute("auth") LoginRequest loginRequest) {
         return "login";
     }
+    @RequestMapping("")
+    public String getLogin1(@ModelAttribute("auth") LoginRequest loginRequest) {
+        return "login";
+    }
+
 
     @RequestMapping(value = "/signup",method = RequestMethod.POST)
     public String register(User user, HttpSession session,

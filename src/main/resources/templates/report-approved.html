@@ -117,7 +117,8 @@
         <th>Loanee Address</th>
         <th>Loanee Email</th>
         <th>Loanee Phone</th>
-        <th>Amount</th>
+        <th>Amount Requested</th>
+        <th>Amount Approved</th>
         <th>Status</th>
     </tr>
     </thead>
@@ -128,6 +129,7 @@
         <td th:text="${a.loanee.loaneeEmail}"></td>
         <td th:text="${a.loanee.phoneNumber}"></td>
         <td th:text="${a.loanAmount}"></td>
+        <td th:text="${a.approvedAmount}"></td>
         <td>
             <th:block th:text="${a.returnStatus(a)}"/>
         </td>

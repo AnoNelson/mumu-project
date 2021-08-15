@@ -117,6 +117,7 @@
                     <th>Loanee Address</th>
                     <th>Loanee Email</th>
                     <th>Loanee Phone</th>
+                    <th>Amount Requested</th>
                     <th>Current Level</th>
                     <th>Status</th>
                 </tr>
@@ -127,6 +128,7 @@
                     <td th:text="${a.loanee.loaneeAdress}"></td>
                     <td th:text="${a.loanee.loaneeEmail}"></td>
                     <td th:text="${a.loanee.phoneNumber}"></td>
+                    <td th:text="${a.loanAmount}"></td>
                     <td>
                         <th:block th:text="${a.returnCurrentLevel(a)}"/>
                     </td>
@@ -135,6 +137,7 @@
                     </td>
                 </tr>
                 <tr class="total">
+                    <td>
                     <td>
                     <td>
                     <td>
