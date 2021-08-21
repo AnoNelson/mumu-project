@@ -8,6 +8,7 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -51,7 +52,7 @@ public class LoanRequest {
     private LocalDateTime legalAprovalDate;
     private String hasNotificationLetterSent;
     private LocalDateTime notificationLetterSentDate;
-    private LocalDateTime requestDate;
+    private Date requestDate;
     private String declineReason;
     private String status;
     @PrePersist
@@ -63,7 +64,7 @@ public class LoanRequest {
         }else{
             loanCommitteeType = "Full board Credit committee";
         }
-        requestDate =LocalDateTime.now();
+        requestDate =new Date();
     }
 
     public String getRequestId() {
@@ -228,11 +229,11 @@ public class LoanRequest {
         this.notificationLetterSentDate = notificationLetterSentDate;
     }
 
-    public LocalDateTime getRequestDate() {
+    public Date getRequestDate() {
         return requestDate;
     }
 
-    public void setRequestDate(LocalDateTime requestDate) {
+    public void setRequestDate(Date requestDate) {
         this.requestDate = requestDate;
     }
 

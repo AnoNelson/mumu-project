@@ -79,8 +79,8 @@
                 </div>
                 <div class="row">
                     <div class="form-group m-b col-md-4">
-                        <label>amount of loan </label> <input type="text" th:field="*{loanRequest.loanAmount}"
-                                                             class="form-control">
+                        <label>amount of loan </label> <input type="number" th:field="*{loanRequest.loanAmount}"
+                                                             class="form-control"  max="2000000000000">
                     </div>
                     <div class="form-group m-b col-md-4">
                         <label>Martial Status </label>

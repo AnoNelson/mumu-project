@@ -107,12 +107,13 @@
 <div>
     <h4>Loan Request System</h4>
     <h4>Kigali, Rwanda</h4>
-    <h4>support@brd.gov.rw</h4>
+    <h4>support@brd.rw</h4>
 </div>
 <h1 th:text="${report}+' Loan to Client'"></h1>
             <table>
                 <thead>
                 <tr>
+                    <td>#</td>
                     <th>Loanee Name</th>
                     <th>Loanee Address</th>
                     <th>Loanee Email</th>
@@ -121,10 +122,12 @@
                     <th>Amount Requested</th>
                     <th>Current Level</th>
                     <th>Status</th>
+                    <th>Date</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="a:${requests}">
+                <tr th:each="a,i:${requests}">
+                    <td th:text="${i.count}"></td>
                     <td th:text="${a.loanee.loaneeFullName}"></td>
                     <td th:text="${a.loanee.loaneeAdress}"></td>
                     <td th:text="${a.loanee.loaneeEmail}"></td>
@@ -137,8 +140,14 @@
                     <td>
                         <th:block th:text="${a.returnStatus(a)}"/>
                     </td>
+                    <td>
+                        <th:block th:text="${#dates.format(a.requestDate, 'dd MMM yyyy')}"/>
+                    </td>
                 </tr>
                 <tr class="total">
+                    <td>
+                    <td>
+                    <td>
                     <td>
                     <td>
                     <td>
