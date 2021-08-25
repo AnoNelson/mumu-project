@@ -16,7 +16,7 @@
             font-family: 'Open Sans', sans-serif;
         }
 
-        h1{
+        h1 {
             font-size: 25px;
             color: black;
             text-transform: uppercase;
@@ -25,30 +25,33 @@
             margin-bottom: 15px;
             text-decoration: underline;
         }
-        table{
+
+        table {
             width: 100%;
             table-layout: fixed;
             align-content: center;
             text-align: center;
         }
 
-        th{
+        th {
             padding: 5px 15px;
             text-align: left;
             font-weight: 800;
             font-size: 12px;
-            color:black;
+            color: black;
             background-color: rgb(72, 72, 117);
             text-transform: uppercase;
         }
-        td{
+
+        td {
             padding: 9px;
             text-align: left;
-            vertical-align:middle;
             font-weight: 300;
-            font-size: 12px;
+            font-size: 9px;
             color: black;
-
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
             border-bottom: solid 1px rgba(31, 22, 22, 0.1);
         }
 
@@ -56,10 +59,11 @@
         /* demo styles */
 
         @import url(https://fonts.googleapis.com/css?family=Roboto:400,500,300,700);
-        body{
+        body {
             font-family: 'Roboto', sans-serif;
         }
-        section{
+
+        section {
             margin: 50px;
         }
 
@@ -68,33 +72,42 @@
         ::-webkit-scrollbar {
             width: 6px;
         }
+
         ::-webkit-scrollbar-track {
-            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+            -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
         }
+
         ::-webkit-scrollbar-thumb {
-            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+            -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
         }
-        h4{
+
+        h4 {
             text-decoration: none;
-            font-weight:500;
+            font-weight: 500;
             font-family: 'Courier New', Courier, monospace;
             font-size: 14px;
-            padding-left:20px;
+            padding-left: 20px;
         }
-        div{
+
+        div {
             padding-top: 30px;
             padding-bottom: 70px;
         }
-        .total td{
+
+        .total td {
             background-color: burlywood;
             font-weight: 700;
-            font-size:18px;
+            font-size: 18px;
         }
-        .buttom{
-            float: right;
-            padding-right:48px;
-            padding-top:40px;
 
+        .buttom {
+            float: right;
+            padding-right: 48px;
+            padding-top: 40px;
+
+        }
+        .email{
+            max-width: 100px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;
         }
     </style>
 </head>
@@ -113,7 +126,8 @@
 <table>
     <thead>
     <tr>
-        <th>#</th>
+        <th style="width: 20px;">#</th>
+        <th>Date</th>
         <th>Loanee Name</th>
         <th>Loanee Address</th>
         <th>Loanee Email</th>
@@ -122,15 +136,19 @@
         <th>Amount Requested</th>
         <th>Amount Approved</th>
         <th>Status</th>
-        <th>Date</th>
+
     </tr>
     </thead>
     <tbody>
     <tr th:each="a,i:${requests}">
         <td th:text="${i.count}"></td>
+        <td>
+            <th:block th:text="${#dates.format(a.requestDate, 'dd MMM yyyy')}"/>
+        </td>
         <td th:text="${a.loanee.loaneeFullName}"></td>
         <td th:text="${a.loanee.loaneeAdress}"></td>
-        <td th:text="${a.loanee.loaneeEmail}"></td>
+        <td class="email"
+            th:text="${a.loanee.loaneeEmail}"></td>
         <td th:text="${a.loanee.phoneNumber}"></td>
         <td th:text="${a.sector}"></td>
         <td th:text="${a.loanAmount}"></td>
@@ -138,9 +156,7 @@
         <td>
             <th:block th:text="${a.returnStatus(a)}"/>
         </td>
-        <td>
-            <th:block th:text="${#dates.format(a.requestDate, 'dd MMM yyyy')}"/>
-        </td>
+
     </tr>
     <tr class="total">
         <td>
@@ -157,7 +173,7 @@
     </tbody>
 </table>
 <div class="buttom">
-    <h4 th:text="${#dates.format(#dates.createNow(), 'dd MMM yyyy HH:mm')}" ></h4>
+    <h4 th:text="${#dates.format(#dates.createNow(), 'dd MMM yyyy HH:mm')}"></h4>
 </div>
 </body>
 </html>
